@@ -502,12 +502,14 @@ button.candy.red {
 
 .lined-paper {
 	position: relative;
+	padding: 4.3em 3em 2em;
 	background-color: #ffffe7; 
 	background-image: 
 		linear-gradient(90deg, transparent 19px, #fcc 19px, #fcc 21px, transparent 21px),
 		linear-gradient(90deg, transparent 39px, #fcc 39px, #fcc 41px, transparent 41px),
 		linear-gradient(rgba(153,204,255,.3) .1em, transparent .1em);
 	background-size: 100% 1.5em;
+	text-align: left;
 }
 
 .lined-paper.yellower {
@@ -565,9 +567,46 @@ button.candy.red {
   z-index: 1;
 }
 
+.lined-paper blockquote {
+	font-size: 2em;
+	line-height: 1em;
+	font-family: serif;
+	font-style: italic;
+	text-align: center;
+	color: #666;
+}
 
+.lined-paper blockquote cite {
+	display: block;
+	text-align: right;
+	margin-top: 1em;
+	font-size: .8em;
+	color: #222;
+}
 
+.lined-paper blockquote cite:before {
+	content: '~ ';
+}
 
+.user-list {
+	padding: 2em;
+	background: #fff;
+	text-align: left;
+}
+
+.user-list li {
+	text-indent: calc(-120px - 1em);
+	padding-left: calc(120px + 1em);
+}
+
+.user-list li b {
+	display: inline-block;
+	width: 120px;
+	margin-right: 1em;
+	line-height: 1.5em;
+	font-weight: bold;
+	text-align: right;
+}
 
 
 
