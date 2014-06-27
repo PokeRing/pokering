@@ -10,6 +10,39 @@
 
 (function($){
 
+	$(window).load(function (){
+		
+		var nav = '<nav class="prime"><ol>';
+
+		$.each($("article[id]"), function() {
+			
+			thisID = $(this).attr('id');
+			thisTitle = $(this).children('h1').html();
+		
+			nav += '<li><a href="#' + thisID + '">' + thisTitle + '</a></li>';
+		});
+
+		nav += '</ol></nav>';
+	
+		$('body').addClass('activated').append(nav);
+		
+		$('nav').on('click', 'a', function() {
+		
+			topOffset = $('h1.prime').height() + 16;
+		
+			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+				var target = $(this.hash);
+				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+				if (target.length) {
+					$('html,body').animate({
+						scrollTop: target.offset().top - topOffset
+					}, 300);
+				}
+			}
+		});
+		
+	});
+
 	$(document).ready(function (){
 	
 		$('.badge-count[data-demoable]').on('click', function() {
@@ -38,21 +71,6 @@
 			
 			$(this).after('<pre class="sample">' + sample + '</pre>');
 			
-		});
-		
-		$('a[href*=#]:not([href=#])').on('click', function() {
-		
-			topOffset = $('h1.prime').height() + 16;
-		
-			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-				var target = $(this.hash);
-				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-				if (target.length) {
-					$('html,body').animate({
-						scrollTop: target.offset().top - topOffset
-					}, 300);
-				}
-			}
 		});
 		
 		$('.open-star[data-rating-value]').on('click', function() {

@@ -435,6 +435,7 @@ button.candy.red {
 .rating-stars .open-star {
 	position: relative;
 	font-family: trajan_bold;
+	cursor: pointer;
 }
 
 .rating-stars .open-star:before {
