@@ -579,7 +579,7 @@ button.candy.red {
 .lined-paper blockquote cite {
 	display: block;
 	text-align: right;
-	margin-top: 1em;
+	margin-top: .8em;
 	font-size: .8em;
 	color: #222;
 }
