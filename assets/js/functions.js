@@ -68,6 +68,8 @@
 			
 			sample = sample.replace(/ data-standalone=""/g, '');
 			
+			sample = sample.replace(/example-box /g, '');
+			
 			sample = sample.replace(/\t/g, '');
 			
 			sample = sample.replace(/</g, '&lt;');

@@ -6,27 +6,20 @@ body {
 	color: #000;
 }
 
-h1.prime {
+header.prime {
 	position: fixed; 
-	z-index: 10;
 	top: 0; 
-	left: 0; 
-	width: 20%;
-	height: 3em;
-	line-height: 3em;
-	padding: 0 1em;
-	background: #333;
-	color: #fff;
-	font-weight: 600;
-}
-
-nav.prime {
-	position: fixed; 
-	top: 3em; 
 	left: 0; 
 	width: 20%;
 	height: 100%;
 	background: #666;
+	font-weight: 600;
+}
+
+h1.prime {
+	padding: 1em 1em;
+	background: #333;
+	color: #fff;
 	font-weight: 600;
 }
 
@@ -106,7 +99,7 @@ pre.sample:focus {
 
 .example-box {
 	width: 100%;
-	height: 140px;
+	min-height: 140px;
 }
 
 .example-box:not(:last-of-type) {
