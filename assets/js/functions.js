@@ -14,10 +14,10 @@
 		
 		var nav = '<ol>';
 
-		$.each($("article[id]"), function() {
+		$.each($("article[id], section[id]"), function() {
 			
 			thisID = $(this).attr('id');
-			thisTitle = $(this).children('h1').html();
+			thisTitle = $(this).children('h1, h2').html();
 		
 			nav += '<li><a href="#' + thisID + '">' + thisTitle + '</a></li>';
 		});
@@ -70,9 +70,15 @@
 			
 			sample = sample.replace(/example-box /g, '');
 			
+			sample = sample.replace(/&nbsp/g, '&amp;nbsp');
+			
 			sample = sample.replace(/\t/g, '');
 			
 			sample = sample.replace(/</g, '&lt;');
+			
+			sample = sample.replace(/&lt;!--/g, '<span class="comment">&lt;!--');
+			
+			sample = sample.replace(/-->/g, '--></span>');
 			
 			$(this).after('<pre class="sample">' + sample + '</pre>');
 			
