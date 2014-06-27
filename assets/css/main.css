@@ -1,14 +1,17 @@
-body {font: 13px Helmet, Freesans, sans-serif;}
-
-a {color: #03f;}
-a:hover {color: #69f;}
+body {
+	padding: 1em 1em 1em calc(20% + 1em);
+	background: #aaa; 
+	font-family: helvetica; 
+	font-size: 16px;
+	color: #000;
+}
 
 h1.prime {
 	position: fixed; 
 	z-index: 10;
 	top: 0; 
 	left: 0; 
-	width: 100%;
+	width: 20%;
 	height: 3em;
 	line-height: 3em;
 	padding: 0 1em;
@@ -49,13 +52,17 @@ nav.prime ol li a {
 	color: #ccc;
 }
 
+article {
+	margin-bottom: 1.5em;
+}
+
 article section {
 	padding: 1em;
 }
 
 article h1 {
 	font-size: 2em;
-	padding: .5em .5em 0;
+	padding: 0 .5em;
 	color: #444;
 }
 
@@ -107,14 +114,6 @@ pre.sample:focus {
 }
 
 [data-demoable] {cursor: pointer;}
-
-body {
-	padding: 3em 1em 1em calc(20% + 1em);
-	background: #aaa; 
-	font-family: helvetica; 
-	font-size: 16px;
-	color: #000;
-}
 
 
 /* Media queries

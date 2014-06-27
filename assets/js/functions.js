@@ -12,7 +12,7 @@
 
 	$(window).load(function (){
 		
-		var nav = '<nav class="prime"><ol>';
+		var nav = '<ol>';
 
 		$.each($("article[id]"), function() {
 			
@@ -22,13 +22,13 @@
 			nav += '<li><a href="#' + thisID + '">' + thisTitle + '</a></li>';
 		});
 
-		nav += '</ol></nav>';
+		nav += '</ol>';
 	
-		$('body').append(nav);
+		$('nav.prime').append(nav);
 		
 		$('nav').on('click', 'a', function() {
 		
-			topOffset = $('h1.prime').height() + 16;
+			topOffset = 16; // 1em
 		
 			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
 				var target = $(this.hash);
