@@ -35,14 +35,30 @@ body.activated nav.prime ol {
 
 nav.prime ol li {
 	font-size: 14px;
-	padding: .5em 1em;
 	border-bottom: 1px solid #555;
 }
 
 nav.prime ol li a {
 	display: block;
+	padding: .5em 1em;
 	text-decoration: none;
+	color: #fff;
+}
+
+nav.prime ol li.sub a {
 	color: #ccc;
+}
+
+nav.prime ol li.sub a:before {
+	content: '· ';
+}
+
+nav.prime ol li:hover {
+	background: #999;
+}
+
+nav.prime ol li:hover a {
+	color: #fff;
 }
 
 article {
