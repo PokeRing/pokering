@@ -1,5 +1,5 @@
 body {
-	padding: 2em 1em 1em calc(20% + 1em);
+	padding: 2em 1em 50em calc(20% + 1em);
 	background: #aaa; 
 	font-family: helvetica; 
 	font-size: 16px;
@@ -129,6 +129,13 @@ pre.sample span.comment {
 
 .example-box:not(:last-of-type) {
 	margin-bottom: 2em;
+}
+
+aside.note {
+	margin-top: 1.25em;
+	padding: 0 1.25em;
+	color: #666;
+	font-size: .85em;
 }
 
 [data-demoable] {cursor: pointer;}
