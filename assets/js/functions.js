@@ -21,7 +21,7 @@
 			
 			if ($(this).is('section')) {
 				
-				navElement = '<li class="sub">';
+				navElement = '<li class="sub" data-nav-link="link-' + thisID + '">';
 				
 			} else {
 				
@@ -61,13 +61,15 @@
 		$('section').each(function(){
 		
 			if (
-				$(this).offset().top < window.pageYOffset + 10
+				$(this).offset().top < window.pageYOffset
 				//begins before top
-				&& $(this).offset().top + $(this).height() > window.pageYOffset + 10
+				&& $(this).offset().top + $(this).height() > window.pageYOffset
 				//but ends in visible area
 				//+ 10 allows you to change hash before it hits the top border
 			) {
-				window.location.hash = $(this).attr('id');
+				history.pushState(null, null, '#' + $(this).attr('id'));
+				$('nav.prime li').removeClass('active');
+				$('nav.prime li[data-nav-link="link-' + $(this).attr('id') + '"]').addClass('active');
 			}
 			
 		});
@@ -85,6 +87,13 @@
 		$('.red-chip[data-demoable]').on('click', function() {
 			
 			$(this).toggleClass('active');
+			
+		});
+		
+		$('nav.prime li').on('click', function() {
+			
+			$('nav.prime li').removeClass('active');
+			$(this).addClass('active');	
 			
 		});
 		

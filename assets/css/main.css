@@ -53,10 +53,12 @@ nav.prime ol li.sub a:before {
 	content: '· ';
 }
 
+nav.prime ol li.active,
 nav.prime ol li:hover {
 	background: #999;
 }
 
+nav.prime ol li.active a,
 nav.prime ol li:hover a {
 	color: #fff;
 }
