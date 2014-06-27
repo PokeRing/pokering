@@ -65,7 +65,7 @@ article > section > h2 {
 	color: #444;
 }
 
-article > h1 > small,
+article > h1 + small,
 article > section > h2 + small {
 	display: block;
 	padding: 0 0 .75em;
