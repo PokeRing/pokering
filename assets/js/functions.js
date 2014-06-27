@@ -24,7 +24,7 @@
 
 		nav += '</ol></nav>';
 	
-		$('body').addClass('activated').append(nav);
+		$('body').append(nav);
 		
 		$('nav').on('click', 'a', function() {
 		
@@ -36,10 +36,13 @@
 				if (target.length) {
 					$('html,body').animate({
 						scrollTop: target.offset().top - topOffset
-					}, 300);
+					}, 500);
 				}
 			}
 		});
+		
+		$.wait(function() { $('body').addClass('activated') }, .5);
+
 		
 	});
 
@@ -99,6 +102,10 @@ function updateCount(which, changeValue) {
 		which.removeClass('flash');
 	});
 	
+}
+
+$.wait = function( callback, seconds){
+   return window.setTimeout( callback, seconds * 1000 );
 }
 
 })(window.jQuery);
