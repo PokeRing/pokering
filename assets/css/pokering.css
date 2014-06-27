@@ -608,11 +608,34 @@ button.candy.red {
 	text-align: right;
 }
 
+.basic-user-info {
+	position: relative;
+	min-height: calc(133px + 8px + 2em);
+	padding: 1em 2em;
+	background: #130000;
+	color: #fff;
+	text-align: left;
+}
 
+.basic-user-info img.avatar {
+	float: left;
+	margin-right: 1em;
+	border: 4px ridge #871a1a;
+	background: #fff;
+}
 
+.basic-user-info h1 {
+	margin-bottom: .5em;
+	font-size: 2em;
+	line-height: 1.2em;
+	font-weight: bold;
+}
 
-
-
+.basic-user-info h1 small {
+	display: block;
+	font-size: .6em;
+	font-weight: normal;
+}
 
 
 
