@@ -19,6 +19,7 @@
 	
 	<link rel="stylesheet" href="assets/css/reset.css" />
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/fonts.css" />
 	<link rel="stylesheet" href="assets/css/pokering.css" />
 	
 	<script src="assets/js/libs/prefixfree.min.js"></script>
@@ -251,11 +252,12 @@
 				
 					PokeRating
 					
+					<!-- yes, these are in reverse order; it reduces the JS overhead. -->
 					<div class="rating-stars">
-						<span class="glyph open-star lit"></span>
-						<span class="glyph open-star lit"></span>
-						<span class="glyph open-star half-lit"></span>
-						<span class="glyph open-star"></span>
+						<span data-rating-value="4" class="glyph open-star"></span>
+						<span data-rating-value="3" class="glyph open-star half-lit"></span>
+						<span data-rating-value="2" class="glyph open-star lit"></span>
+						<span data-rating-value="1" class="glyph open-star lit"></span>
 					</div>
 					
 				</div>

@@ -54,6 +54,16 @@
 				}
 			}
 		});
+		
+		$('.open-star[data-rating-value]').on('click', function() {
+		
+			// call the function that makes the server call for the rating here
+			
+			$('.open-star[data-rating-value]').removeClass('lit half-lit users-rating');
+			
+			$(this).addClass('users-rating');
+			
+		});
 	
 	});
 
