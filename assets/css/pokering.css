@@ -208,17 +208,13 @@ div.sample {
 }
 
 .badge-count.flash {
-	-webkit-animation-name: count-flash;
-	-webkit-animation-duration: 75ms;
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-timing-function: linear;
-	-moz-animation-name: count-flash;
-	-moz-animation-duration: 75ms;
-	-moz-animation-iteration-count: 1;
-	-moz-animation-timing-function: linear;
+	animation-name: count-flash;
+	animation-duration: 75ms;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
 }
 
-@-webkit-keyframes count-flash {
+@keyframes count-flash {
 	0% {
 		background-color: transparent;
 		opacity:1;
@@ -358,7 +354,7 @@ button.candy {
 	font-size: 1em;
 	text-transform: uppercase;
 	text-shadow: 0 1px 2px rgba(0,0,0,.8);
-	-webkit-box-shadow:
+	box-shadow:
 		3px 3px 6px rgba(0, 0, 0, .2),
 		0px 0px 3px rgba(0, 0, 0, .1),
 		inset 0px 6px 5px rgba(102,255,51,.4),
@@ -375,7 +371,7 @@ button.candy {
 	text-transform: uppercase;
 	text-shadow: 0 1px 2px rgba(0,0,0,.8);
 	background: #319e0b;
-	-webkit-box-shadow:
+	box-shadow:
 		3px 3px 6px rgba(0, 0, 0, .2),
 		0px 0px 3px rgba(0, 0, 0, .1),
 		inset 0px 6px 5px rgba(102,255,51,.4),
@@ -388,7 +384,7 @@ button.candy:active {
 
 button.candy.aqua {
 	background: #0b819e;
-	-webkit-box-shadow:
+	box-shadow:
 		3px 3px 6px rgba(0, 0, 0, .2),
 		0px 0px 3px rgba(0, 0, 0, .1),
 		inset 0px 6px 5px rgba(102,204,255,.7),
@@ -397,11 +393,47 @@ button.candy.aqua {
 
 button.candy.red {
 	background: #c00;
-	-webkit-box-shadow:
+	box-shadow:
 		3px 3px 6px rgba(0, 0, 0, .2),
 		0px 0px 3px rgba(0, 0, 0, .1),
 		inset 0px 6px 5px rgba(255,102,102,.8),
 		inset 0px 0 5px #600;
+}
+
+button.big-button {
+	display: inline-block;
+	padding: .2em 1.2em .3em .6em;
+	border: 4px solid #fff;
+	border-radius: 12px;
+	color: #fff;
+	font-size: 1.6em;
+	line-height: 1.8em;
+	text-shadow: 0 2px 2px rgba(0,0,0,.8);
+	background: green;
+	background: linear-gradient(to bottom, rgba(24,131,51,1) 0%,rgba(30,125,50,1) 9%,rgba(27,122,49,1) 14%,rgba(34,113,47,1) 24%,rgba(34,107,46,1) 30%,rgba(31,105,44,1) 35%,rgba(34,102,44,1) 38%,rgba(30,91,39,1) 58%,rgba(32,85,36,1) 65%,rgba(29,69,30,1) 100%);
+	box-shadow: 
+		0 0 3px 1px rgba(0,0,0,.5),
+		inset 0 0 3px 2px rgba(0,0,0,.5);
+}
+
+button.big-button.red {
+	background: linear-gradient(to bottom, rgba(254,0,3,1) 0%,rgba(250,0,7,1) 4%,rgba(243,0,2,1) 13%,rgba(229,0,6,1) 27%,rgba(223,0,3,1) 31%,rgba(214,0,6,1) 39%,rgba(200,0,3,1) 51%,rgba(195,0,6,1) 54%,rgba(183,0,2,1) 64%,rgba(179,0,5,1) 67%,rgba(168,0,3,1) 76%,rgba(147,0,4,1) 100%);
+}
+
+button.big-button:before {
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	width: 2.4em;
+	height: 1.8em;
+	margin-right: 1.2em;
+	background: url(../img/chip_red.png) no-repeat;
+	background-size: contain;
+	border-right: 1px solid rgba(39,67,31,.5);
+}
+
+button.big-button.red:before {
+	border-right: 1px solid rgba(130,23,23,.5);
 }
 
 .ratings-bar {
@@ -588,18 +620,18 @@ button.candy.red {
 	content: '~ ';
 }
 
-.user-list {
+.personal-list {
 	padding: 2em;
 	background: #fff;
 	text-align: left;
 }
 
-.user-list li {
+.personal-list li {
 	text-indent: calc(-120px - 1em);
 	padding-left: calc(120px + 1em);
 }
 
-.user-list li b {
+.personal-list li b {
 	display: inline-block;
 	width: 120px;
 	margin-right: 1em;
