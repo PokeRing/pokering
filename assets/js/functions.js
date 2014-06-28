@@ -61,9 +61,9 @@
 		$('section').each(function(){
 		
 			if (
-				$(this).offset().top < window.pageYOffset + 10
+				$(this).offset().top < window.pageYOffset + 17
 				//begins before top
-				&& $(this).offset().top + $(this).height() > window.pageYOffset + 10
+				&& $(this).offset().top + $(this).height() > window.pageYOffset + 17
 				//but ends in visible area
 				//+ 10 allows you to change hash before it hits the top border
 			) {

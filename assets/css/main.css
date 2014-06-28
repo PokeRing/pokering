@@ -14,6 +14,7 @@ header.prime {
 	height: 100%;
 	background: #666;
 	font-weight: 600;
+	overflow: auto;
 }
 
 h1.prime {
@@ -132,10 +133,11 @@ pre.sample span.comment {
 }
 
 aside.note {
-	margin-top: 1.25em;
-	padding: 0 1.25em;
+	margin: 1.25em 1.25em 0;
+	padding: .25em 1.25em;
 	color: #666;
 	font-size: .85em;
+	border-left: 1px solid #666;
 }
 
 [data-demoable] {cursor: pointer;}
