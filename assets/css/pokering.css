@@ -261,13 +261,26 @@ div.sample {
 	background: #000;
 }
 
+.big-field {
+	position: relative;
+}
+
+.big-field label {
+	position: absolute;
+	top: -.75em;
+	width: 240px;
+	margin-left: -.4em;
+	color: #fff;
+	font-weight: bold;
+}
+
 .big-field input[type=text] {
 	display: inline-block;
 	vertical-align: middle;
 	background: #fff;
 	border: 0;
-	width: 240px;
-	padding: .75em 1em;
+	width: 14em;
+	padding: .90em 1em;
 	font-size: 1.2em;
 	outline: 0;
 	border-radius: 12px;
@@ -286,7 +299,7 @@ div.sample {
 	height: 4.5em;
 	background: url(../img/chip_green_2.png) no-repeat;
 	background-size: contain;
-	box-shadow: 0 0 4px 2px rgba(0,0,0,.3);
+	box-shadow: 0 0 4px 1px rgba(255,255,255,.3);
 	border-radius: 100%;
 }
 
@@ -439,6 +452,7 @@ button.candy.red {
 }
 
 button.big-button {
+	position: relative;
 	display: inline-block;
 	padding: .2em 1.2em .3em .6em;
 	border: 4px solid #fff;
@@ -458,6 +472,14 @@ button.big-button.red {
 	background: linear-gradient(to bottom, rgba(254,0,3,1) 0%,rgba(250,0,7,1) 4%,rgba(243,0,2,1) 13%,rgba(229,0,6,1) 27%,rgba(223,0,3,1) 31%,rgba(214,0,6,1) 39%,rgba(200,0,3,1) 51%,rgba(195,0,6,1) 54%,rgba(183,0,2,1) 64%,rgba(179,0,5,1) 67%,rgba(168,0,3,1) 76%,rgba(147,0,4,1) 100%);
 }
 
+button.big-button.facebook {
+	background: linear-gradient(to bottom, rgba(70,85,190,1) 0%,rgba(61,78,168,1) 28%,rgba(49,63,127,1) 69%,rgba(42,60,111,1) 84%,rgba(39,55,101,1) 100%);
+}
+
+button.big-button.twitter {
+	background: linear-gradient(to bottom, rgba(0,148,218,1) 0%,rgba(0,139,205,1) 22%,rgba(0,104,157,1) 82%,rgba(0,99,148,1) 100%);
+}
+
 button.big-button:before {
 	content: '';
 	display: inline-block;
@@ -470,8 +492,29 @@ button.big-button:before {
 	border-right: 1px solid rgba(39,67,31,.5);
 }
 
+button.big-button.facebook:before {
+	background: url(../img/icon_fb.png) no-repeat .5em center;
+	background-size: contain;
+}
+
+button.big-button.twitter:before {
+	background: url(../img/icon_twitter.png) no-repeat center left;
+}
+
 button.big-button.red:before {
 	border-right: 1px solid rgba(130,23,23,.5);
+}
+
+button.big-button.facebook:before {
+	border-right: 1px solid rgba(28,46,98,.5);
+}
+
+button.big-button.twitter:before {
+	border-right: 1px solid rgba(27,99,152,.5);
+}
+
+button.big-button:active {
+	top: 2px;
 }
 
 .ratings-bar {
@@ -572,7 +615,7 @@ button.big-button.red:before {
 
 .lined-paper {
 	position: relative;
-	padding: 4.3em 3em 2em;
+	padding: 4.3em 0 2em;
 	background-color: #ffffe7; 
 	background-image: 
 		linear-gradient(90deg, transparent 19px, #fcc 19px, #fcc 21px, transparent 21px),
@@ -639,6 +682,7 @@ button.big-button.red:before {
 
 .lined-paper blockquote {
 	font-size: 2em;
+	margin: 0 2em;
 	line-height: 1em;
 	font-family: serif;
 	font-style: italic;
@@ -731,18 +775,18 @@ section {
 	display: block;
 	position: absolute;
 	left: 0;
-	top: .55em;
+	top: .4em;
 	width: 1.75em;
 	color: yellow;
 	font-weight: bold;
-	font-size: 1.25em;
+	font-size: 1.4em;
 	text-align: right;
 }
 
 .player-list li h1 {
 	display: table-cell;
 	width: 50%;
-	padding: 0 0 0 1.75em;
+	padding: 0 0 0 2em;
 	font-size: 1.4em;
 	line-height: 1.2em;
 	font-weight: bold;
@@ -754,6 +798,7 @@ section {
 	font-size: .6em;
 	line-height: 1em;
 	font-weight: normal;
+	font-style: italic;
 }
 
 .player-list li .buttons {
@@ -763,3 +808,88 @@ section {
 	padding: 0 1em 0 0;
 	text-align: right;
 }
+
+.ribbon-title {
+	position: relative;
+	height: 3em;
+	color: #ff0007;
+	text-align: center;
+}
+
+.ribbon-title:after, 
+.ribbon-title:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	border: 1.5em solid #9e0b0f;
+	box-shadow: 0 6px 6px -6px rgba(0,0,0,.5);
+}
+
+.ribbon-title:before {
+	left: 0;
+	border-right-color: transparent;
+}
+
+.ribbon-title:after {
+	right: 0;
+	border-left-color: transparent;
+}
+
+.ribbon-title h1 {
+	font-family: trajan_regular;
+	font-size: 2em;
+	line-height: 1.5em;
+}
+
+.ribbon-title h1:before,
+.ribbon-title h1:after {
+	content: '♦';
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 .75em;
+	font-size: .5em;
+}
+
+.simple-note {
+	font-family: serif;
+	font-style: italic;
+	font-size: 1.5em;
+}
+
+.long-text {
+	width: 85%;
+	max-width: 30em;
+	margin: 0 auto;
+	padding: 1em;
+	background: #f7f5d6;
+	text-align: left;
+	font-family: serif;
+	font-size: 1.25em;
+	border-radius: 12px;
+	box-shadow: 0 0 2px 1px rgba(0,0,0,.5);
+}
+
+.long-text h2 {
+	margin-bottom: .65em;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.long-text b {
+	font-weight: bold;
+}
+
+.long-text p:not(:last-child) {
+	margin-bottom: .75em;
+}
+
+
+
+
+
+
+
+
+
+
+
