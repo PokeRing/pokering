@@ -937,7 +937,7 @@ section {
 }
 
 .photo-icon:hover:before {
-	transform: scale(1.25,1.25) rotate(180deg);
+	transform: scale(1.25,1.25) rotate(9deg);
 }
 
 
