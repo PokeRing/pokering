@@ -888,10 +888,57 @@ section {
 	width: 7%;
 }
 
+.check-in-pin {
+	position: relative;
+	display: inline-block;
+	width: 53px;
+	height: 57px;
+	background: url(../img/icon_pin_text.png) no-repeat;
+	background-size: contain;
+}
 
+.check-in-pin:before {
+	content: url(../img/icon_pin.png);
+	position: absolute;
+	top: 1em;
+	left: .95em;
+	perspective: 1000;
+	transition: 400ms;
+	transform-style: preserve-3d;
+}
 
+.check-in-pin:hover:before {
+	transform: rotateY(180deg);
+}
 
+.photo-icon {
+	position: relative;
+	display: inline-block;
+	width: 62px;
+	height: 63px;
+	background: url(../img/icon_photo.png) no-repeat;
+	background-size: contain;
+}
 
+.photo-icon:before {
+	content: '+';
+	position: absolute;
+	top: .3em;
+	left: .5em;
+	height: 1em;
+	width: 1em;
+	color: #fff;
+	font-size: 2em;
+	line-height: .75em;
+	font-weight: bold;
+	-webkit-backface-visibility: hidden;
+	transition: transform 400ms;
+	transform-origin: 50% 50%;
+}
+
+.photo-icon:hover:before {
+	transform: scale(1.25,1.25) rotate(180deg);
+}
 
 
 
