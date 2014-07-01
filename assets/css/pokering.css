@@ -883,7 +883,10 @@ section {
 	margin-bottom: .75em;
 }
 
-
+.card-matrix img {
+	display: inline-block;
+	width: 7%;
+}
 
 
 
