@@ -93,6 +93,7 @@ article > section > h2 + small {
 }
 
 div.sample {
+	position: relative;
 	background: #666;
 	padding: 2em 0;
 	border-top-right-radius: 6px;
