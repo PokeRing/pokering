@@ -29,9 +29,23 @@ jenkins
 1. Create Amazon Linux AMI
 2. Used `pokering.pem` key file as set in the instance creation to SSH in
 3. `sudo yum update`
-4. `sudo yum install nodejs npm --enablerepo=epel`
-5. Follow instructions at [http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux](http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux) to install jenkins
-6. `sudo npm install -g inherits && sudo npm install -g express && sudo npm install -g socket.io`
+4. `sudo yum install nodejs npm git --enablerepo=epel`
+5. `sudo npm install -g inherits && sudo npm install -g forever`
+6. `sudo yum update && sudo yum install nginx && sudo sudo chkconfig nginx on && sudo service nginx start`
+7. Install Jenkins (reference [http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux](http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux)):
+        sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+        sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
+        sudo yum install jenkins
+        sudo service jenkins start
+        sudo chkconfig jenkins on
+8. Create deploy key for the jenkins user and add it as a deploy key on Github
+        sudo -su jenkins
+        ssh-keygen -t rsa
+9. Manually clone the repo as jenkins user on the ec2 instance, then copy to `/srv/`
+10. Add the `pokering-test-deploy` job that will simply run `cd /srv/pokering && git pull --rebase origin master && npm install && forever restartall`
+11. Update the /etc/nginx/nginx.conf file and restart
+
+http://devblog.daniel.gs/2014/01/deploying-node-apps-on-aws-ec2-with.html
 
 Some considerations:
 MongoDB?  Use an IOPS MongoDB install from AWS Marketplace for production DB: 250/month
