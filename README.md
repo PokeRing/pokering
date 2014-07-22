@@ -47,7 +47,8 @@ jenkins
         
 9. Manually clone the repo as jenkins user on the ec2 instance, then copy to `/srv/`
 10. Add the `pokering-test-deploy` job that will simply run `cd /srv/pokering && git pull --rebase origin master && npm install && forever restartall`
-11. Update the /etc/nginx/nginx.conf file and restart
+11. One time run directly on the server `cd /srv/pokering && npm start`
+12. Update the /etc/nginx/nginx.conf file and restart
 
 http://devblog.daniel.gs/2014/01/deploying-node-apps-on-aws-ec2-with.html
 
