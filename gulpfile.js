@@ -3,6 +3,7 @@ var gulp = require('gulp');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint');
+var shell = require('gulp-shell');
 
 // Lint Task
 gulp.task('lint-server-js', function() {
@@ -16,16 +17,7 @@ gulp.task('watch', function() {
     gulp.watch('routes/**/*.js', ['lint-server']);
 });
 
-gulp.task('run', function() {
-  var debug = require('debug')('PokeRing');
-  var app = require('./app');
-
-  app.set('port', process.env.PORT || 3000);
-
-  var server = app.listen(app.get('port'), function() {
-    debug('Express server listening on port ' + server.address().port);
-  });
-});
+gulp.task('run', shell.task(['node start.js']));
 
 // Default Task
 gulp.task('default', ['lint-server-js', 'run', 'watch']);

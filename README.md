@@ -30,7 +30,7 @@ jenkins
 2. Used `pokering.pem` key file as set in the instance creation to SSH in
 3. `sudo yum update`
 4. `sudo yum install nodejs npm git --enablerepo=epel`
-5. `sudo npm install -g inherits && sudo npm install -g forever`
+5. `sudo npm install -g inherits`
 6. `sudo yum update && sudo yum install nginx && sudo sudo chkconfig nginx on && sudo service nginx start`
 7. Install Jenkins (reference [http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux](http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux)):
         

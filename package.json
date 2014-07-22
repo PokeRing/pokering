@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "./node_modules/gulp/bin/gulp.js run",
+    "start": "./node_modules/forever/bin/forever start start.js",
     "debug": "DEBUG=PokeRing ./node_modules/gulp/bin/gulp.js"
   },
   "dependencies": {
@@ -11,11 +11,13 @@
     "cookie-parser": "~1.0.1",
     "debug": "~0.7.4",
     "express": "~4.2.0",
+    "forever": "^0.11.1",
     "morgan": "~1.0.0",
     "serve-favicon": "^2.0.1"
   },
   "devDependencies": {
     "gulp": "^3.8.6",
-    "gulp-jshint": "^1.7.1"
+    "gulp-jshint": "^1.7.1",
+    "gulp-shell": "^0.2.8"
   }
 }
