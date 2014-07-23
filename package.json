@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "./node_modules/forever/bin/forever start start.js",
-    "debug": "DEBUG=PokeRing ./node_modules/gulp/bin/gulp.js",
+    "start": "NODE_ENV=production ./node_modules/forever/bin/forever start start.js",
+    "debug": "NODE_ENV=development DEBUG=PokeRing ./node_modules/gulp/bin/gulp.js",
     "pull": "git fetch --all && git pull --rebase origin master && npm prune && npm install"
   },
   "dependencies": {
