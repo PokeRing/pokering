@@ -1,25 +1,38 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express         = require('express'),
+    path            = require('path'),
+    logger          = require('morgan'),
+    cookieParser    = require('cookie-parser'),
+    bodyParser      = require('body-parser'),
+    mysql           = require('mysql');
 
 var app = express();
+
+var config      = require('./config/app');
+var dbConfig    = require('./config/database');
+config.database = dbConfig[app.get('env')];
+
+var db = mysql.createPool({
+    host     : config.database.host,
+    user     : config.database.user,
+    password : config.database.password,
+    database : config.database.database
+});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('db', db);
 
 /************ BEGIN ROUTES *************/
 
 // This is the only route for the actual webapp, a single page app, so just serving the index html
-var index = require('./routes/index');
+var index = require('./app/routes/index');
 app.use('/', index);
 
 // All others here are API resources
-var users = require('./routes/api/users');
+var users = require('./app/routes/api/users');
 app.use('/api/users', users);
 
 /************ END ROUTES ***************/
@@ -48,7 +61,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({
         message: err.message,
-        error: err
+        status: err.status
     });
 });
 

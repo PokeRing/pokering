@@ -10,14 +10,20 @@ The node/express backend's other and larger use is for serving the API resources
 
 # To begin local development
 1. Install [node.js](http://nodejs.org/).  If you use [homebrew](http://brew.sh/) on OS X (recommended) you can simply run `brew install node`.
-2. Clone this repository, navigate to your cloned repo root, then run `npm install`.
-3. Run `npm run debug`.  This will start a development server on your machine, accessible at [http://localhost:3000/](http://localhost:3000/).
-4. When you need to pull changes from the github repo, there's an npm convenience script `npm run pull` that will fetch, pull, npm prune and install all for you in a single command.
-4. Frontend files such as html, css, images, and javascript live in the `/public` directory.
-5. If working on the backend and/or API, the webapp and API within are built on the [expressjs web framework](http://expressjs.com/).
+2. Install mysql.  Again this is easiest to do through homebrew: `brew install mysql`.  Ensure that mysql is started and is started on startup (easy to follow instructions included at the end of the `brew install`).
+3. Run the following from the command line `mysql -uroot -e "CREATE DATABASE pokering" && mysql -uroot -e "CREATE USER 'pokering'@'localhost' IDENTIFIED BY 'p0kerings'" && mysql -uroot -e "GRANT ALL PRIVILEGES ON pokering.* TO 'pokering'@'localhost'" && mysql -uroot -e "FLUSH PRIVILEGES"`
+4. Clone this repository, navigate to your cloned repo root, then run `npm install && npm run migrate`.
+5. Run `npm run debug`.  This will start a development server on your machine, accessible at [http://localhost:3000/](http://localhost:3000/).
+6. When you need to pull changes from the github repo, there's an npm convenience script `npm run pull` that will fetch, pull, npm prune and install all for you in a single command.
+7. Frontend files such as html, css, images, and javascript live in the `/public` directory.
+8. If working on the backend and/or API, the webapp and API within are built on the [expressjs web framework](http://expressjs.com/).
 
-# Sysadmin stuff
+# Node Library Notes
+1. We're using [`node-mysql`](https://github.com/felixge/node-mysql) for db connectivity and querying
+2. For DB migrations, [`db-migrate`](https://github.com/kunklejr/node-db-migrate)
+3. Integration and Unit Testing: [`mocha`](http://visionmedia.github.io/mocha/), [`nodeunit`](https://github.com/caolan/nodeunit), and [`supertest`](https://github.com/visionmedia/supertest)
 
+# Sysadmin Notes
 We're not going to use puppet or any sort of server admin automation tool yet.  But, tracking each server set up on EC2 here for now so it could happen at some point if need be.
 
 utility
