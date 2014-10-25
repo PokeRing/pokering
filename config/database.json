@@ -9,14 +9,14 @@
     "testing": {
         "driver": "mysql",
         "host": "utility.cbyumbutqbqz.us-east-1.rds.amazonaws.com",
-        "user": "pokering",
+        "user": "rdsuser",
         "password": "c8=iB8%unt",
         "database": "pokering"
     },
     "production": {
         "driver": "mysql",
         "host": "",
-        "user": "pokering",
+        "user": "rdsuser",
         "password": "c8=iB8%unt",
         "database": "pokering"
     }
