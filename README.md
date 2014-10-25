@@ -35,6 +35,11 @@ For sys admins on the project, sshing in to any of the EC2 instances can be done
 3. Integration and Unit Testing: [`mocha`](http://visionmedia.github.io/mocha/), [`nodeunit`](https://github.com/caolan/nodeunit), and [`supertest`](https://github.com/visionmedia/supertest)
 
 # Sysadmin Notes
+
+TODO for testing server:
+Install MySql
+
+
 We're not going to use puppet or any sort of server admin automation tool yet.  But, tracking each server set up on EC2 here for now so it could happen at some point if need be.
 
 utility
