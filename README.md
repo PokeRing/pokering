@@ -18,6 +18,17 @@ The node/express backend's other and larger use is for serving the API resources
 7. Frontend files such as html, css, images, and javascript live in the `/public` directory.
 8. If working on the backend and/or API, the webapp and API within are built on the [expressjs web framework](http://expressjs.com/).
 
+# Writing and Running Tests
+To run tests, simple execute `npm run test`.  For more info on actually writing and working with tests, check out [this resource](http://devcenter.wercker.com/articles/languages/nodejs/getting-started-express-and-mocha.html).
+
+# Deployments
+Test and Production servers are hosted at AWS.  We're making use of [Jenkins CI](http://jenkins-ci.org/) to manage some automation of deployment needs.  After pushing changes to this repo, simply go to http://54.208.252.9:8080, log in with the creds ec2-user, and the common password provided, and you'll be able to run the deployment jobs that are set up there.
+
+# Working with AWS
+For sys admins on the project, sshing in to any of the EC2 instances can be done by using the user ec2-user and the pokering.pem identify file.
+
+------------------------------------------------------------------------------
+
 # Node Library Notes
 1. We're using [`node-mysql`](https://github.com/felixge/node-mysql) for db connectivity and querying
 2. For DB migrations, [`db-migrate`](https://github.com/kunklejr/node-db-migrate)
