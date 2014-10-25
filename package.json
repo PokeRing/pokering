@@ -6,8 +6,12 @@
     "start": "NODE_ENV=aws ./node_modules/forever/bin/forever start start.js",
     "stop": "./node_modules/forever/bin/forever stopall",
     "debug": "NODE_ENV=development DEBUG=PokeRing ./node_modules/gulp/bin/gulp.js",
-    "migrate": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e all",
-    "pull": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate",
+    "migrate": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e development",
+    "migrate-test": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e testing",
+    "migrate-production": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e production",
+    "pull": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate --development",
+    "pull-test": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate --testing",
+    "pull-production": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate --production",
     "test": "./node_modules/mocha/bin/mocha"
   },
   "dependencies": {

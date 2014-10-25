@@ -1,7 +1,21 @@
 {
-    "all": {
+    "development": {
         "driver": "mysql",
         "host": "localhost",
+        "user": "pokering",
+        "password": "p0kerings",
+        "database": "pokering"
+    },
+    "testing": {
+        "driver": "mysql",
+        "host": "utility.cbyumbutqbqz.us-east-1.rds.amazonaws.com",
+        "user": "pokering",
+        "password": "c8=iB8%unt",
+        "database": "pokering"
+    },
+    "production": {
+        "driver": "mysql",
+        "host": "",
         "user": "pokering",
         "password": "c8=iB8%unt",
         "database": "pokering"
