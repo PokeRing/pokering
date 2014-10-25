@@ -9,9 +9,9 @@
     "migrate": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e development",
     "migrate-test": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e testing",
     "migrate-production": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e production",
-    "pull": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate --development",
-    "pull-test": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate --testing",
-    "pull-production": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate --production",
+    "pull": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate-development",
+    "pull-test": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate-testing",
+    "pull-production": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate-production",
     "test": "./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
