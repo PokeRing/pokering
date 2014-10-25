@@ -7,7 +7,9 @@
     "stop": "./node_modules/forever/bin/forever stopall",
     "debug": "NODE_ENV=development DEBUG=PokeRing ./node_modules/gulp/bin/gulp.js",
     "migrate": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json",
+    "migrate-aws": "./node_modules/db-migrate/bin/db-migrate up --config config/database.json -e aws",
     "pull": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate",
+    "pull-aws": "git fetch --all && git pull --rebase origin master && npm prune && npm install && npm run migrate --aws",
     "test": "./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
