@@ -6,7 +6,7 @@
         "password": "p0kerings",
         "database": "pokering"
     },
-    "production": {
+    "aws": {
         "driver": "mysql",
         "host": "localhost",
         "user": "pokering",
