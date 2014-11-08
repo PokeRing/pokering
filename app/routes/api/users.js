@@ -4,6 +4,7 @@ var express = require('express'),
 
 /* GET users collection */
 router.get('/', function(req, res, next) {
+    if (!utils.authenticate(req, res, next)) return res.end();
     req.app.get('db').getConnection(function(err, connection) {
         if (err) {
             return next(utils.getError(503, err.code));
@@ -14,14 +15,15 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET a single user */
-router.get('/:id', function(req, res) {
-    if (req.params.id == 1) {
-        res.json({'id': 1, 'name': 'Joe'});
-    } else if (req.params.id == 2) {
-        res.json({'id': 2, 'name': 'Phil'});
-    } else {
-        throw utils.getError(404, 'User not found');
-    }
+router.get('/:username', function(req, res, next) {
+    if (!utils.authenticate(req, res, next)) return;
+    req.app.get('db').getConnection(function(err, connection) {
+        if (err) {
+            return next(utils.getError(503, err.code));
+        } else {
+            utils.sendItem('users', {'username': req.params.username}, res, next);
+        }
+    });
 });
 
 module.exports = router;
