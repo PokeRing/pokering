@@ -56,8 +56,8 @@ utility (test server)
         sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
         sudo apt-get update && sudo apt-get install jenkins
 
-Create deploy key for ubuntu user and add to github: `ssh-keygen -t rsa` no passphrase, copy the public key to github
-Change Jenkins user to be ubuntu:ubuntu (http://blog.manula.org/2013/03/running-jenkins-under-different-user-in.html)
+12. Create deploy key for ubuntu user and add to github: `ssh-keygen -t rsa` no passphrase, copy the public key to github
+13. Change Jenkins user to be ubuntu:ubuntu (http://blog.manula.org/2013/03/running-jenkins-under-different-user-in.html):
 
         # Update $JENKINS_USER and $JENKINS_GROUP to be ubuntu in /etc/default/jenkins
         sudo chown -R ubuntu:ubuntu /var/lib/jenkins
@@ -65,11 +65,11 @@ Change Jenkins user to be ubuntu:ubuntu (http://blog.manula.org/2013/03/running-
         sudo chown -R ubuntu:ubuntu /var/log/jenkins
         sudo service jenkins restart
 
-12. Set security through Jenkins web interface
-13. `sudo apt-get install git && sudo apt-get install libmysqlclient-dev && sudo apt-get install nodejs` 
+14. Set security through Jenkins web interface
+15. `sudo apt-get install git && sudo apt-get install libmysqlclient-dev && sudo apt-get install nodejs` 
 Manually clone the repo on the ec2 instance, then copy to `/var/www/pokering`
-14. Add the `pokering-test-deploy` job that will simply run `cd /var/www/pokering && git pull --rebase origin master && bundle install && RAILS_ENV=test bin/rake db:migrate`
-15. Update nginx config:
+16. Add the `pokering-test-deploy` job that will simply run `cd /var/www/pokering && git pull --rebase origin master && bundle install && RAILS_ENV=test bin/rake db:migrate`
+17. Update nginx config:
 
         server {
             listen 80;
@@ -78,7 +78,7 @@ Manually clone the repo on the ec2 instance, then copy to `/var/www/pokering`
             root /var/www/pokering/public;
         }
 
-16. `sudo service nginx restart`
+18. `sudo service nginx restart`
 
 
 RDS
