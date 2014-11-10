@@ -2,28 +2,28 @@ PokeRing Web Application and API
 ================================
 
 # Overview
-The PokeRing web application is built on node.js and the expressjs web framework.  
+The PokeRing web application is built with Ruby on Rails.  
 
-The frontend is just a single page app.  Express is used to render the single html page at `/`, but aside from that, there are no node/express dependencies for or restrictions on frontend development.
+The frontend is just a single page app.  Rails is used to render the single html page at `/`, but aside from that, there are no Rails dependencies for or restrictions on frontend development.  It is designed to be an isolated frontend development experience.
 
-The node/express backend's other and larger use is for serving the API resources under various routes within `/api/`.
+Rail's larger use is for serving the API resources under various routes within `/api/...`.
 
 # To begin local development
-1. Install ruby 2.1.1, and rails 4.1.2.  [RVM](http://rvm.io/rvm/install) is the recommended way of installing:
+1. Install ruby 2.1.1, and rails 4.1.2. [RVM](http://rvm.io/rvm/install) is the recommended way of installing:
         
         \curl -sSL https://get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm
         rvm install 2.1.1 && rvm use 2.1.1 --default
         gem install rails -v 4.1.2
 
 2. Install mysql.  Again this is easiest to do through homebrew: `brew install mysql`.  Ensure that mysql is started and is started on startup (easy to follow instructions included at the end of the `brew install`).
-3. Run the following from the command line `mysql -uroot -e "CREATE DATABASE pokering" && mysql -uroot -e "CREATE USER 'pokering'@'localhost' IDENTIFIED BY 'p0kerings'" && mysql -uroot -e "GRANT ALL PRIVILEGES ON pokering.* TO 'pokering'@'localhost'" && mysql -uroot -e "FLUSH PRIVILEGES"`.  If you already had mysql installed, and have a root password set, you'll just need to include that password in each of these calls, like `mysql -uroot -p12345 -e "CREATE DATABASE..."`
-4. Clone this repository, navigate to your cloned repo root, then run `bundle install && bin/rake db:migrate && bin/rake db:seed`.  This will install the ruby gem dependencies, set up your db, and populate it with seed data.
+3. Run the following from the command line `mysql -uroot -e "CREATE DATABASE pokering" && mysql -uroot -e "CREATE DATABASE pokeringtests" && mysql -uroot -e "CREATE USER 'pokering'@'localhost' IDENTIFIED BY 'p0kerings'" && mysql -uroot -e "GRANT ALL PRIVILEGES ON pokering.* TO 'pokering'@'localhost'" && mysql -uroot -e "GRANT ALL PRIVILEGES ON pokeringtests.* TO 'pokering'@'localhost'" && mysql -uroot -e "FLUSH PRIVILEGES"`.  If you already had mysql installed, and have a root password set, you'll just need to include that password in each of these calls, like `mysql -uroot -p12345 -e "CREATE DATABASE..."`
+4. Clone this repository, navigate to your cloned repo root, then run `bin/rake source:pull && bin/rake db:seed`.  This will install the ruby gem dependencies, set up your db, and populate it with seed data.
 5. Run `rails server`.  This will start a development server on your machine, accessible at [http://localhost:3000/](http://localhost:3000/).
-6. When you need to pull changes from the github repo, there's an npm convenience script `` that will fetch, pull, npm prune and install all for you in a single command.
+6. When you need to pull changes from the github repo, there's an npm convenience script `bin/rake source:pull` that will pull the most recent master code and perform necessary cleanup, migrations, etc after the pull.  If you're working on a feature branch you'll need to run all the commands manually.  See `lib/tasks/source.rake` to see everything that happens.
 7. Frontend files such as html, css, images, and javascript live in the `/public` directory.
 
 # Writing and Running Tests
-
+To run tests: `bin/rake tests:run`
 
 # Deployments
 Test and Production servers are hosted at AWS.  We're making use of [Jenkins CI](http://jenkins-ci.org/) to manage some automation of deployment needs.  After pushing changes to this repo, simply go to http://http://54.88.174.144/:8080, log in with the creds jenkins, and the common password provided, and you'll be able to run the deployment jobs that are set up there.
@@ -44,10 +44,6 @@ We're not going to use puppet or any sort of server admin automation tool yet.  
 
 utility (test server)
 ========
-node
-openssl
-nginx
-jenkins
 
 1. Create EC2 instance using Ubuntu 14.04 LTS AMI
 2. Used `pokering.pem` key file as set in the instance creation to SSH in: copy `pokering.pem` to `~/.ssh/`, then ssh in to the instance: `ssh -i ~/.ssh/pokering.pem ubuntu@[public DNS name]`
