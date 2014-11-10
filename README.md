@@ -36,10 +36,6 @@ For sys admins on the project, sshing in to any of the EC2 instances can be done
 
 # Sysadmin Notes
 
-TODO for testing server:
-Install MySql
-
-
 We're not going to use puppet or any sort of server admin automation tool yet.  But, tracking each server set up on EC2 here for now so it could happen at some point if need be.
 
 utility
@@ -49,26 +45,31 @@ openssl
 nginx
 jenkins
 
-1. Create Amazon Linux AMI
-2. Used `pokering.pem` key file as set in the instance creation to SSH in
-3. `sudo yum update`
-4. `sudo yum install nodejs npm git --enablerepo=epel`
-5. `sudo npm install -g inherits`
-6. `sudo yum update && sudo yum install nginx && sudo sudo chkconfig nginx on && sudo service nginx start`
-7. Install Jenkins (reference [http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux](http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux)):
+1. Create EC2 instance using Ubuntu 14.04 LTS AMI
+2. Used `pokering.pem` key file as set in the instance creation to SSH in: copy `pokering.pem` to `~/.ssh/`, then ssh in to the instance: `ssh -i ~/.ssh/pokering.pem ubuntu@[public DNS name]`
+3. `sudo apt-get update`
+4. `curl -L get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm && rvm requirements`
+5. `rvm install 2.1.1 && rvm use 2.1.1 --default`
+6. `gem install rails -v 4.1.2`
+7. `gem install passenger`
+8. `rvmsudo passenger-install-nginx-module` and follow instructions to install any missing dependencies, re-run the above command after
+9. `wget -O init-deb.sh http://library.linode.com/assets/660-init-deb.sh && sudo mv init-deb.sh /etc/init.d/nginx && sudo chmod +x /etc/init.d/nginx && sudo /usr/sbin/update-rc.d -f nginx defaults`
+10. `sudo service nginx start`
+11. Install Jenkins (reference [http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux](http://sanketdangi.com/post/62715793234/install-configure-jenkins-on-amazon-linux)):
         
-        sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
-        sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
-        sudo yum install jenkins
+        wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+        sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+        sudo apt-get update
+        sudo apt-get install jenkins
         sudo service jenkins start
-        sudo chkconfig jenkins on
 
-8. Create deploy key for the jenkins user and add it as a deploy key on Github
+12. Create deploy key for the jenkins user and add it as a deploy key on Github
         
         sudo -su jenkins
         ssh-keygen -t rsa
         
-9. Manually clone the repo as jenkins user on the ec2 instance, then copy to `/srv/`
+13. `sudo apt-get install git` 
+Manually clone the repo as jenkins user on the ec2 instance, then copy to `/var/www/pokering`
 10. Add the `pokering-test-deploy` job that will simply run `cd /srv/pokering && npm run pull-aws && ./node_modules/forever/bin/forever restartall`
 11. One time run directly on the server `cd /srv/pokering && npm start`
 12. Update the /etc/nginx/nginx.conf file and restart
