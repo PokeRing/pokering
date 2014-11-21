@@ -41,3 +41,4 @@ gem 'spring',        group: :development
 gem 'rails-api'
 gem 'mysql2'
 gem 'will_paginate', '~> 3.0'
+gem 'bcrypt'

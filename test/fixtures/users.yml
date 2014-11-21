@@ -5,7 +5,8 @@ one:
   last_name: MyString
   email: MyString
   username: MyString
-  pin: 1
+  pin_salt: MyString
+  pin_encrypted: MyString
   favorite_hand: MyString
   avatar_url: MyString
   phone: MyString
@@ -20,7 +21,8 @@ two:
   last_name: MyString
   email: MyString
   username: MyString
-  pin: 1
+  pin_salt: MyString
+  pin_encrypted: MyString
   favorite_hand: MyString
   avatar_url: MyString
   phone: MyString
