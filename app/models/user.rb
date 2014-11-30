@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX
+  has_secure_password
 
-  def pin=(pin)
-    self.pin_salt = BCrypt::Engine.generate_salt
-    self.pin_encrypted= BCrypt::Engine.hash_secret(pin, self.pin_salt)
+  def self.get_queryable_fields
+    ['first_name', 'last_name', 'email', 'username', 'bio', 'city', 'state']
   end
+
 end

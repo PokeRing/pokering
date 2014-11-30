@@ -5,8 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name
       t.string :email
       t.string :username
-      t.string :pin_salt
-      t.string :pin_encrypted
+      t.string :password_digest
       t.string :favorite_hand
       t.string :avatar_url
       t.string :phone

@@ -23,7 +23,7 @@ Rail's larger use is for serving the API resources under various routes within `
 7. Frontend files such as html, css, images, and javascript live in the `/public` directory.
 
 # Writing and Running Tests
-To run tests: `bin/rake tests:run`
+To run tests: `bin/rake test`.  Unit and integration testing via default Rails capabilities within the `test` directory.
 
 # Deployments
 Test and Production servers are hosted at AWS.  We're making use of [Jenkins CI](http://jenkins-ci.org/) to manage some automation of deployment needs.  After pushing changes to this repo, simply go to http://http://54.88.174.144/:8080, log in with the creds jenkins, and the common password provided, and you'll be able to run the deployment jobs that are set up there.
@@ -68,7 +68,7 @@ utility (test server)
 14. Set security through Jenkins web interface
 15. `sudo apt-get install git && sudo apt-get install libmysqlclient-dev && sudo apt-get install nodejs` 
 Manually clone the repo on the ec2 instance, then copy to `/var/www/pokering`
-16. Add the `pokering-test-deploy` job that will simply run `cd /var/www/pokering && git pull --rebase origin master && bundle install && RAILS_ENV=test bin/rake db:migrate`
+16. Add the `pokering-test-deploy` job that will simply run `cd /var/www/pokering && git pull --rebase origin master && bundle install && RAILS_ENV=staging bin/rake db:migrate`
 17. Update nginx config:
 
         server {

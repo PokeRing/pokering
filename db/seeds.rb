@@ -7,13 +7,15 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE users AUTO_INCREMENT = 1")
 User.create([
   {
     first_name: 'Penny',
     last_name: 'Lane',
     email: 'pennylane@getpokering.com',
     username: 'pennylane',
-    pin: '1234',
+    password: '1234',
+    password_confirmation: '1234',
     favorite_hand: '4 of a kind',
     phone: '1235550987',
     city: 'Memphis',
@@ -26,7 +28,8 @@ User.create([
     last_name: 'Bladell',
     email: 'g.blad@getpokering.com',
     username: 'g.blad',
-    pin: '1234',
+    password: '1234',
+    password_confirmation: '1234',
     notify_via: 'mobile',
     status: 'active'
   },
@@ -35,7 +38,8 @@ User.create([
     last_name: 'Goombots',
     email: 'vgooms@getpokering.com',
     username: 'vgooms',
-    pin: '1234',
+    password: '1234',
+    password_confirmation: '1234',
     favorite_hand: 'Royal Flush',
     phone: '1235554387',
     city: 'New York',
@@ -46,14 +50,17 @@ User.create([
   },
   {
     email: 'kate.grainger@getpokering.com',
-    status: 'invited'
+    status: 'invited',
+    password: '1234',
+    password_confirmation: '1234'
   },
   {
     first_name: 'Manny',
     last_name: 'Thomas',
     email: 'mmthomas@getpokering.com',
     username: 'mmthomas',
-    pin: '1234',
+    password: '1234',
+    password_confirmation: '1234',
     notify_via: 'mobile',
     status: 'inactive'
   }

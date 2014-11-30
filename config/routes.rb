@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  apipie
   namespace :api do
     namespace :v1 do
       resources :users
+      match "/users/:id/avatar" => "users#update_avatar", via: :post
+      match "/authenticator" => "users#authenticator", via: :post
     end
   end
 

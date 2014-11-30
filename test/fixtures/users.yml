@@ -1,33 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  username: MyString
-  pin_salt: MyString
-  pin_encrypted: MyString
-  favorite_hand: MyString
-  avatar_url: MyString
-  phone: MyString
-  city: MyString
-  state: MyString
-  notify_via: MyString
-  bio: MyText
-  status: MyString
+  first_name: Walter
+  last_name: Pestler
+  email: wpestler@getpokering.com
+  username: wpestler
+  password_digest: xxxxx
+  favorite_hand: 4 of a kind
+  avatar_url: http://getpokering.com
+  phone: 1234567890
+  city: Standard
+  state: NY
+  notify_via: email
+  bio: Walter Pestler likes long walks off a short pier
+  status: active
 
 two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  username: MyString
-  pin_salt: MyString
-  pin_encrypted: MyString
-  favorite_hand: MyString
-  avatar_url: MyString
-  phone: MyString
-  city: MyString
-  state: MyString
-  notify_via: MyString
-  bio: MyText
-  status: MyString
+  first_name: Mandy
+  last_name: Brechlin
+  email: mbrech23839@getpokering.com
+  username: mbrech23839
+  password_digest: xxxxx
+  favorite_hand: straight flush
+  avatar_url: http://getpokering.com
+  phone: 1234567891
+  city: Vlonkin
+  state: SD
+  notify_via: email
+  bio: My name is Mandy and I enjoy playing a game of poker every once in a while
+  status: active
