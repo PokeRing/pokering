@@ -63,16 +63,12 @@ module Api
       end
 
       def update_item(type, id, json, strip = [])
-        if type.exists?(id)
+        existing = get_item(type, id)
+        if !existing.nil?
           strip.each do |key|
             json.delete(key) if json.has_key?(key)
           end
-          existing = type.find(id)
-          if existing.update(json)
-            render :status => 200, :json => type.find(id)
-          else
-            render :status => 500, :json => {:status => 500, :message => existing.errors.full_messages.to_sentence}
-          end
+          render :status => 200, :json => type.find(id)
         else
           render :status => 404, :json => {:status => 404, :message => 'Not Found'}
         end
