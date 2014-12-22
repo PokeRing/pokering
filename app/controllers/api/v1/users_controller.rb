@@ -24,7 +24,8 @@ module Api
       api :GET, '/users', "Get a paged list of users, page limit set at #{WillPaginate.per_page}"
       error :code => 404, :desc => "Not Found"
       error :code => 500, :desc => "Internal Server Error"
-      param :q, String, :desc => "a search across relevant fields"
+      param :ids, String, :desc => "a comma-delimited list of ids to return (cannot be used in conjunction with the q parameter, ids takes precedence)"
+      param :q, String, :desc => "a search across relevant fields (cannot be used in conjunction with the ids parameter, ids takes precedence)"
       param :status, ['active', 'inactive', 'invited'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
       param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = last_name ASC"
@@ -33,7 +34,7 @@ module Api
                           :status => params[:status] ? params[:status] : 'active'
                         )
                         .where(
-                          get_arel_search(User, params[:q])
+                          get_arel_search(User, params[:q], params[:ids])
                         )
                        .paginate(:page => params[:page] ? params[:page] : 1)
                        .order(params[:order] ? params[:order] : 'last_name ASC')
@@ -48,6 +49,9 @@ module Api
         if !json.has_key?("password")
           json["password"] = '1'
           json["password_confirmation"] = '1'
+        end
+        if !json.has_key?("status")
+          json["status"] = "active"
         end
         create_item User, json, ["id", "created_at", "updated_at", "password_digest"]
       end

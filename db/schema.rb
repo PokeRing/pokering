@@ -14,8 +14,10 @@
 ActiveRecord::Schema.define(version: 20141222024516) do
 
   create_table "rings", force: true do |t|
+    t.string   "title"
     t.integer  "creator_id"
     t.string   "status"
+    t.text     "users"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

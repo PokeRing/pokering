@@ -63,6 +63,7 @@ module Api
         created = type.create(json)
         if created.valid?
           render :status => 201, :json => created
+          return created.id
         else
           render :status => 500, :json => {:status => 500, :message => created.errors.messages}
         end
@@ -76,10 +77,18 @@ module Api
         end
       end
 
-      def show_item(type, id)
+      def show_item(type, id, merge = nil)
         item = get_item(type, id)
         if !item.nil?
-          render :json => item
+          if merge.is_a? Hash
+            item_hash = item.as_json
+            merge.each do |key, value|
+              item_hash[key] = value
+            end
+            render :json => item_hash
+          else
+            render :json => item
+          end
         else
           render :status => 404, :json => {:status => 404, :message => 'Not Found'}
         end
@@ -109,17 +118,31 @@ module Api
         # end
       end
 
-      def get_arel_search(type, q)
+      def get_arel_search(type, q, ids)
         table   = type.arel_table
         search  = nil
-        type.get_queryable_fields.each do |field|
-          if search.nil?
-            search = table[field].matches("%#{q}%")
-          else
-            search = search.or(table[field].matches("%#{q}%"))
+        if !ids.nil?
+          ids = ids.split(',')
+          search = table[:id].in(ids)
+        else
+          type.get_queryable_fields.each do |field|
+            if search.nil?
+              search = table[field].matches("%#{q}%")
+            else
+              search = search.or(table[field].matches("%#{q}%"))
+            end
           end
         end
         return search
+      end
+
+      def get_id_list(type, select, match_field, match_value)
+        results = type.select(select).where(match_field => match_value)
+        list    = []
+        results.each do |result|
+          list.push(result[select])
+        end
+        return list
       end
 
     end

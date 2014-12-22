@@ -3,10 +3,11 @@
   "required": [],
   "properties": {
     "id": { "type": "integer" },
+    "title": { "type": "string" },
     "creator_id": { "type": "integer" },
     "status": { "type": "string" },
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" },
-    "members": { "type": "array" }
+    "users": { "type": "array" }
   }
 }

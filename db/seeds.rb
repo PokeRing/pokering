@@ -65,3 +65,26 @@ User.create([
     status: 'inactive'
   }
 ])
+
+Ring.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE rings AUTO_INCREMENT = 1")
+Ring.create([
+  {
+    title: 'Penny\'s Pokering',
+    creator_id: 1,
+    status: 'active',
+    users: [2,3]
+  },
+  {
+    title: 'Vin',
+    creator_id: 3,
+    status: 'active',
+    users: [1,4]
+  },
+  {
+    title: 'Mannatee',
+    creator_id: 4,
+    status: 'inactive',
+    users: [1,2,3]
+  }
+])

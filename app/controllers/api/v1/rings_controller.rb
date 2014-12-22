@@ -8,15 +8,54 @@ module Api
         description "The JSON schema for the request body per [json-schema.org](http://json-schema.org/)<pre><code>#{File.read(File.join(Rails.root, "app", "models", "json-schema", "ring.json"))}</code></pre>"
       end
 
-      api :GET, '/rings', "Get a paged list of pokerings, page limit set at #{WillPaginate.per_page}"
+      api :GET, '/rings', "Get a paged list of rings, page limit set at #{WillPaginate.per_page}"
       error :code => 404, :desc => "Not Found"
       error :code => 500, :desc => "Internal Server Error"
-      param :q, String, :desc => "a search across relevant fields"
+      param :ids, String, :desc => "a comma-delimited list of ids to return (cannot be used in conjunction with the q parameter, ids takes precedence)"
+      param :q, String, :desc => "a search across relevant fields (cannot be used in conjunction with the ids parameter, ids takes precedence)"
       param :status, ['active', 'inactive'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
       param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = last_name ASC"
       def index
+        @results = Ring.where(
+                          :status => params[:status] ? params[:status] : 'active'
+                        )
+                        .where(
+                          get_arel_search(Ring, params[:q], params[:ids])
+                        )
+                       .paginate(:page => params[:page] ? params[:page] : 1)
+                       .order(params[:order] ? params[:order] : 'title ASC')
+        render_collection @results, params[:page] ? params[:page] : 1
+      end
 
+      api :POST, '/rings', 'Create a ring'
+      description "Refer to the JSON schema above for what to the JSON to post."
+      meta :response => 'Returns the created ring object'
+      def create
+        json  = validate_request_body request.body.read, 'ring'
+        if !json.has_key?("status")
+          json["status"] = "active"
+        end
+        json[:creator_id] = @@user.id
+        id    = create_item Ring, json, ["id", "created_at", "updated_at"]
+      end
+
+      api :GET, '/rings/:id', 'Get a single ring'
+      error :code => 404, :desc => "Not Found"
+      def show
+        show_item Ring, params[:id]
+      end
+
+      api :PUT, '/rings/:id', 'Update a single ring'
+      error :code => 404, :desc => "Not Found"
+      description "Refer to the JSON schema above for what to the JSON to post."
+      def update
+        json = validate_request_body request.body.read, 'ring'
+        update_item Ring, params[:id], json, ["id", "created_at", "updated_at"]
+      end
+
+      def destroy
+        delete_item Ring, params[:id]
       end
 
     end

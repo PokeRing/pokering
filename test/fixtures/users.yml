@@ -5,7 +5,7 @@ one:
   last_name: Pestler
   email: wpestler@getpokering.com
   username: wpestler
-  password_digest: xxxxx
+  password_digest: '$2a$10$yX03uEIwzukKvukaTN1ULOMF1ROVu8RYMpuYWEWafV9Vm1sFFTwJa'
   favorite_hand: 4 of a kind
   avatar_url: http://getpokering.com
   phone: 1234567890
@@ -20,7 +20,7 @@ two:
   last_name: Brechlin
   email: mbrech23839@getpokering.com
   username: mbrech23839
-  password_digest: xxxxx
+  password_digest: '$2a$10$yX03uEIwzukKvukaTN1ULOMF1ROVu8RYMpuYWEWafV9Vm1sFFTwJa'
   favorite_hand: straight flush
   avatar_url: http://getpokering.com
   phone: 1234567891
