@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "id": { "type": "integer" },
+    "creator_id": { "type": "integer" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "members": { "type": "array" }
+  }
+}

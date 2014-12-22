@@ -2,12 +2,15 @@ module Api
   module V1
     class BaseController < ApplicationController
 
+      @@user = nil
+
       resource_description do
         formats ['json']
         meta :author => {:name => 'Patrick', :surname => 'Force'}
       end
 
-      before_filter :authenticate
+      before_filter :http_authenticate
+      before_filter :authorize
 
       protected
 
@@ -20,10 +23,30 @@ module Api
         }
       end
 
-      def authenticate
+      def http_authenticate
         authenticate_or_request_with_http_basic('Pokering') do |username, password|
-          User.find_by(username: username).try(:authenticate, password)
+          authenticate username, password
         end
+      end
+
+      def authenticate(username, password)
+        user = User.find_by(username: username).try(:authenticate, password)
+        if !user.nil?
+          @@user = user
+          return user
+        end
+      end
+
+      def authorize
+        if params.has_key?(:id)
+          if controller_name == "users" && params[:id].to_i != @@user.id
+            forbid
+          end
+        end
+      end
+
+      def forbid
+        render :status => 403, :json => {:status => 403, :message => "Forbidden"}
       end
 
       def validate_request_body(request_body, schema_name)
@@ -72,6 +95,18 @@ module Api
         else
           render :status => 404, :json => {:status => 404, :message => 'Not Found'}
         end
+      end
+
+      def delete_item(type, id)
+        # Not yet supported
+        render :status => 404, :json => {:status => 404, :message => 'Not Found'}
+        # existing = get_item(type, id)
+        # if !existing.nil?
+        #   existing.destroy
+        #   render :status => 204, :json => ""
+        # else
+        #   render :status => 404, :json => {:status => 404, :message => 'Not Found'}
+        # end
       end
 
       def get_arel_search(type, q)

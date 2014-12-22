@@ -8,13 +8,13 @@ module Api
         description "The JSON schema for the request body per [json-schema.org](http://json-schema.org/)<pre><code>#{File.read(File.join(Rails.root, "app", "models", "json-schema", "user.json"))}</code></pre>"
       end
 
-      skip_before_filter :authenticate, :only => [:create, :authenticator]
+      skip_before_filter :http_authenticate, :only => [:create, :authenticator]
 
       api :POST, '/authenticator', "Check to see if username and password (pin) creds are valid (does not require basic HTTP authentication)"
       description "The request body should be `{\"username\": \"xxxx\", \"password\": \"xxxx\"}`"
       def authenticator
         req = JSON.parse(request.body.read)
-        if req.has_key?('username') && req.has_key?('password') && User.find_by(username: req['username']).try(:authenticate, req['password'])
+        if req.has_key?('username') && req.has_key?('password') && authenticate(req['username'], req['password'])
           render :status => 200, :json => {:status => 200, :message => 'Authorized'}
         else
           render :status => 401, :json => {:status => 401, :message => 'Unauthorized'}
@@ -64,6 +64,10 @@ module Api
       def update
         json = validate_request_body request.body.read, 'user'
         update_item User, params[:id], json, ["id", "created_at", "updated_at", "password_digest"]
+      end
+
+      def destroy
+        delete_item User, params[:id]
       end
 
       api :POST, '/users/:id/avatar', 'Update the user avatar'

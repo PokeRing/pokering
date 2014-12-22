@@ -22,6 +22,9 @@ Rail's larger use is for serving the API resources under various routes within `
 6. When you need to pull changes from the github repo, there's an npm convenience script `bin/rake source:pull` that will pull the most recent master code and perform necessary cleanup, migrations, etc after the pull.  If you're working on a feature branch you'll need to run all the commands manually.  See `lib/tasks/source.rake` to see everything that happens.
 7. Frontend files such as html, css, images, and javascript live in the `/public` directory.
 
+# API Documentation
+Once up and running locally, API docs can be found at [http://localhost:3000/api/v1/docs](http://localhost:3000/api/v1/docs).
+
 # Writing and Running Tests
 To run tests: `bin/rake test`.  Unit and integration testing via default Rails capabilities within the `test` directory.
 
