@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   first_name: Walter
   last_name: Pestler
   email: wpestler@getpokering.com
@@ -16,6 +17,7 @@ one:
   status: active
 
 two:
+  id: 2
   first_name: Mandy
   last_name: Brechlin
   email: mbrech23839@getpokering.com

@@ -7,4 +7,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def raw_put(action, params, body)
+    @request.env['RAW_POST_DATA'] = body
+    response = put(action, params)
+    @request.env.delete('RAW_POST_DATA')
+    response
+  end
+
 end

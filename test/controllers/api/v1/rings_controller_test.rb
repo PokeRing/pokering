@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class ApiV1UsersControllerTest < ActionController::TestCase
+class ApiV1RingsControllerTest < ActionController::TestCase
 
   def setup
-    @controller = Api::V1::UsersController.new
+    @controller = Api::V1::RingsController.new
   end
 
-  test "GET /users" do
+  test "GET /rings" do
     user = 'wpestler'
     pw = '1234'
     request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
@@ -14,14 +14,17 @@ class ApiV1UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "POST /users" do
+  test "POST /rings" do
+    user = 'wpestler'
+    pw = '1234'
+    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
     headers = { 'Content-Type' => 'application/json' }
-    json    = '{"email": "automatedtest@getpokering.com"}'
+    json    = '{"title": "Pokering 3"}'
     post :create, json, headers
     assert_response :success
   end
 
-  test "GET /users/:id" do
+  test "GET /rings/:id" do
     user = 'wpestler'
     pw = '1234'
     request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
@@ -29,11 +32,11 @@ class ApiV1UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "PUT /users/:id" do
+  test "PUT /rings/:id" do
     user = 'wpestler'
     pw = '1234'
     request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
-    json    = '{"last_name": "PESTLER"}'
+    json    = '{"title": "Pokering 1 UPDATED"}'
     raw_put :update, {:id => 1, 'Content-Type' => 'application/json'}, json
     assert_response :success
   end
