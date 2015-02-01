@@ -17,6 +17,8 @@
     "state": { "type": "string" },
     "notify_via": { "type": "string" },
     "bio": { "type": "string" },
+    "share": { "type": "boolean" },
+    "is_admin": { "type": "boolean" },
     "status": { "type": "string" },
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" }

@@ -11,13 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222024516) do
+ActiveRecord::Schema.define(version: 20150201035438) do
+
+  create_table "games", force: true do |t|
+    t.integer  "organizer_id"
+    t.string   "name"
+    t.text     "location"
+    t.datetime "date"
+    t.string   "base_game_type"
+    t.string   "game_type"
+    t.string   "limit_type"
+    t.float    "stakes",         limit: 24
+    t.float    "buy_in",         limit: 24
+    t.float    "re_buy_in",      limit: 24
+    t.float    "buy_in_min",     limit: 24
+    t.float    "buy_in_max",     limit: 24
+    t.integer  "min_players"
+    t.integer  "max_players"
+    t.text     "info"
+    t.text     "players"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rings", force: true do |t|
     t.string   "title"
     t.integer  "creator_id"
-    t.string   "status"
     t.text     "users"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "trips", force: true do |t|
+    t.integer  "organizer_id"
+    t.text     "location"
+    t.datetime "arrival_date"
+    t.datetime "departure_date"
+    t.boolean  "is_chop_room"
+    t.integer  "max_players"
+    t.text     "players"
+    t.boolean  "notify_rings"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,6 +71,8 @@ ActiveRecord::Schema.define(version: 20141222024516) do
     t.string   "state"
     t.string   "notify_via"
     t.text     "bio"
+    t.string   "share"
+    t.boolean  "is_admin"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"

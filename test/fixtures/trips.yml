@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  organizer_id: 1
+  location: 'Borgata, Atlantic City, NJ'
+  arrival_date: 2015-05-01T05:00:00Z
+  departure_date: 2015-05-05T05:00:00Z
+  is_chop_room: true
+  max_players: 4
+  players: '[]'
+  notify_rings: true
+  status: active
+
+two:
+  id: 2
+  organizer_id: 1
+  location: 'caesars palace, las vegas, nv'
+  arrival_date: 2015-07-01T05:00:00Z
+  departure_date: 2015-07-05T05:00:00Z
+  is_chop_room: false
+  max_players: 10
+  players: '[2]'
+  notify_rings: false
+  status: active

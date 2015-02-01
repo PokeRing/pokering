@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "id": { "type": "integer" },
+    "organizer_id": { "type": "integer" },
+    "name": { "type": "string" },
+    "location": { "type": "string" },
+    "date": { "type": "string", "format": "date-time" },
+    "type": { "type": "string" },
+    "stakes": { "type": "number" },
+    "buy_in": { "type": "number" },
+    "re_buy_in": { "type": "number" },
+    "buy_in_min": { "type": "number" },
+    "buy_in_max": { "type": "number" },
+    "min_players": { "type": "number" },
+    "max_players": { "type": "number" },
+    "buy_in": { "type": "number" },
+    "players": { "type": "array" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

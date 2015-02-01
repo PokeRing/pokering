@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "id": { "type": "integer" },
+    "location": { "type": "string" },
+    "arrival_date": { "type": "string", "format": "date-time" },
+    "departure_date": { "type": "string", "format": "date-time" },
+    "is_chop_room": { "type": "boolean" },
+    "max_players": { "type": "integer" },
+    "players": { "type": "array" },
+    "notify_rings": { "type": "boolean" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

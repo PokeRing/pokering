@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       match "/users/:id/avatar" => "users#update_avatar", via: :post
       match "/authenticator" => "users#authenticator", via: :post
       resources :rings
+      resources :trips
+      resources :games
     end
   end
 

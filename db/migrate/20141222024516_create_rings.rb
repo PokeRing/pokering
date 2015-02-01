@@ -3,8 +3,8 @@ class CreateRings < ActiveRecord::Migration
     create_table :rings do |t|
       t.string :title
       t.integer :creator_id
-      t.string :status
       t.text :users
+      t.string :status
 
       t.timestamps
     end

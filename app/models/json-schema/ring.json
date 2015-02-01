@@ -5,9 +5,9 @@
     "id": { "type": "integer" },
     "title": { "type": "string" },
     "creator_id": { "type": "integer" },
+    "users": { "type": "array" },
     "status": { "type": "string" },
     "created_at": { "type": "string", "format": "date-time" },
-    "updated_at": { "type": "string", "format": "date-time" },
-    "users": { "type": "array" }
+    "updated_at": { "type": "string", "format": "date-time" }
   }
 }

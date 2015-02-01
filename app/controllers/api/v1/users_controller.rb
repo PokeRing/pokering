@@ -9,6 +9,7 @@ module Api
       end
 
       skip_before_filter :http_authenticate, :only => [:create, :authenticator]
+      skip_before_filter :authorize, :only => [:create, :authenticator]
 
       api :POST, '/authenticator', "Check to see if username and password (pin) creds are valid (does not require basic HTTP authentication)"
       description "The request body should be `{\"username\": \"xxxx\", \"password\": \"xxxx\"}`"
@@ -29,12 +30,13 @@ module Api
       param :status, ['active', 'inactive', 'invited'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
       param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = last_name ASC"
+      param :various, String, :desc => "any table column name can be used as a param, ex: username=admin etc."
       def index
         @results = User.where(
                           :status => params[:status] ? params[:status] : 'active'
                         )
                         .where(
-                          get_arel_search(User, params[:q], params[:ids])
+                          get_arel_search(User, params)
                         )
                        .paginate(:page => params[:page] ? params[:page] : 1)
                        .order(params[:order] ? params[:order] : 'last_name ASC')
@@ -53,7 +55,7 @@ module Api
         if !json.has_key?("status")
           json["status"] = "active"
         end
-        create_item User, json, ["id", "created_at", "updated_at", "password_digest"]
+        create_item User, json, ["password_digest", "is_admin"]
       end
 
       api :GET, '/users/:id', 'Get a single user'
@@ -67,7 +69,7 @@ module Api
       description "Refer to the JSON schema above for what to the JSON to post.  One note, for creating users, the relevant password (pin) fields are `password` and `password_confirmation`.  If left out, the password will not be updated.  In fact, any fields left out will simply remain the same."
       def update
         json = validate_request_body request.body.read, 'user'
-        update_item User, params[:id], json, ["id", "created_at", "updated_at", "password_digest"]
+        update_item User, params[:id], json, ["password_digest", "is_admin"]
       end
 
       def destroy

@@ -4,12 +4,12 @@ one:
   id: 1
   title: "Pokering 1"
   creator_id: 1
-  status: active
   users: '[2]'
+  status: active
 
 two:
   id: 2
   title: "Pokering 2"
   creator_id: 2
-  status: inactive
   users: '[1]'
+  status: inactive

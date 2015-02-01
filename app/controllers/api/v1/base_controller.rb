@@ -38,11 +38,14 @@ module Api
       end
 
       def authorize
-        if params.has_key?(:id)
-          if controller_name == "users" && params[:id].to_i != @@user.id
-            forbid
-          end
+        if @@user.is_admin
+          return true
         end
+        if controller_name == "users" && params.has_key?(:id) && params[:id].to_i != @@user.id
+          return forbid
+        end
+        # some authorization must happen after this, so not all authorization handled here
+        return true
       end
 
       def forbid
@@ -57,6 +60,7 @@ module Api
       end
 
       def create_item(type, json, strip = [])
+        strip.push("id", "created_at", "updated_at")
         strip.each do |key|
           json.delete(key) if json.has_key?(key)
         end
@@ -95,7 +99,14 @@ module Api
       end
 
       def update_item(type, id, json, strip = [])
+        strip.push("id", "created_at", "updated_at")
         existing = get_item(type, id)
+        if !@@user.is_admin && existing.has_attribute?('organizer_id') && existing.organizer_id != @@user.id
+          return forbid
+        end
+        if !@@user.is_admin && existing.has_attribute?('creator_id') && existing.creator_id != @@user.id
+          return forbid
+        end
         if !existing.nil?
           strip.each do |key|
             json.delete(key) if json.has_key?(key)
@@ -118,9 +129,11 @@ module Api
         # end
       end
 
-      def get_arel_search(type, q, ids)
+      def get_arel_search(type, params)
         table   = type.arel_table
         search  = nil
+        q       = params[:q]
+        ids     = params[:ids]
         if !ids.nil?
           ids = ids.split(',')
           search = table[:id].in(ids)
@@ -131,6 +144,11 @@ module Api
             else
               search = search.or(table[field].matches("%#{q}%"))
             end
+          end
+        end
+        params.each do |key, value|
+          if type.column_names.include?(key)
+            search = search.and(table[key].eq(value))
           end
         end
         return search

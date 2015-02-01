@@ -21,6 +21,8 @@ User.create([
     city: 'Memphis',
     state: 'TN',
     notify_via: 'email',
+    share: 'full',
+    is_admin: false,
     status: 'active'
   },
   {
@@ -31,6 +33,8 @@ User.create([
     password: '1234',
     password_confirmation: '1234',
     notify_via: 'mobile',
+    share: 'basic',
+    is_admin: false,
     status: 'active'
   },
   {
@@ -46,13 +50,17 @@ User.create([
     state: 'NY',
     notify_via: 'email',
     bio: 'Hey, my name is Vinny!  I\'ve been made fun of my whole life because of my last name, so I\'ve decided to become good at something to get back at everyone.  And that something is poker.  Are you ready to play me?  Because I bet I will beat you.  I have years and years of turmoil to prove it.',
+    share: 'personal',
+    is_admin: false,
     status: 'active'
   },
   {
     email: 'kate.grainger@getpokering.com',
     status: 'invited',
     password: '1234',
-    password_confirmation: '1234'
+    password_confirmation: '1234',
+    share: 'full',
+    is_admin: false
   },
   {
     first_name: 'Manny',
@@ -62,7 +70,21 @@ User.create([
     password: '1234',
     password_confirmation: '1234',
     notify_via: 'mobile',
+    share: 'full',
+    is_admin: false,
     status: 'inactive'
+  },
+  {
+    first_name: 'Mister',
+    last_name: 'Admin',
+    email: 'admin@getpokering.com',
+    username: 'admin',
+    password: '1234',
+    password_confirmation: '1234',
+    notify_via: 'email',
+    share: 'basic',
+    is_admin: true,
+    status: 'active'
   }
 ])
 
@@ -86,5 +108,73 @@ Ring.create([
     creator_id: 4,
     status: 'inactive',
     users: [1,2,3]
+  }
+])
+
+Trip.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE trips AUTO_INCREMENT = 1")
+Trip.create([
+  {
+    organizer_id: 1,
+    location: 'Borgata, Atlantic City, NJ',
+    arrival_date: '2015-05-09T05:00:00Z',
+    departure_date: '2015-05-12T05:00:00Z',
+    is_chop_room: true,
+    max_players: 4,
+    players: '[]',
+    notify_rings: true,
+    status: 'active'
+  },
+  {
+    organizer_id: 1,
+    location: 'caesars palace, las vegas, nv',
+    arrival_date: '2015-07-15T05:00:00Z',
+    departure_date: '2015-07-20T08:00:00Z',
+    is_chop_room: false,
+    max_players: 10,
+    players: '[2]',
+    notify_rings: false,
+    status: 'active'
+  }
+])
+
+Game.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE games AUTO_INCREMENT = 1")
+Game.create([
+  {
+    organizer_id: 1,
+    name: 'Game 1',
+    location: '123 3rd Ave Apt 3, New York, NY',
+    date: '2015-05-09T05:00:00Z',
+    base_game_type: 'tournament',
+    game_type: 'holdem',
+    limit_type: 'no-limit',
+    stakes: 1.5,
+    buy_in: 1.5,
+    re_buy_in: 1.5,
+    buy_in_min: 1.5,
+    buy_in_max: 1.5,
+    min_players: 1,
+    max_players: 1,
+    players: '[2,3]',
+    status: 'active'
+  },
+  {
+    organizer_id: 1,
+    name: 'Game 2',
+    location: '124 3rd Ave Apt 3, New York, NY',
+    date: '2015-04-31T20:54:38Z',
+    base_game_type: 'cash',
+    game_type: 'holdem',
+    limit_type: 'no-limit',
+    stakes: 1.5,
+    buy_in: 1.5,
+    re_buy_in: 1.5,
+    buy_in_min: 1.5,
+    buy_in_max: 1.5,
+    min_players: 1,
+    max_players: 1,
+    players: '[3,6]',
+    status: 'active'
   }
 ])
