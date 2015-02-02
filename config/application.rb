@@ -22,5 +22,11 @@ module Pokering
 
     WillPaginate.per_page = 20
 
+    config.events = {
+      "invites.create" => {
+        "notify" => "invited_id"
+      }
+    }
+
   end
 end
