@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "id": { "type": "integer" },
+    "parent_type": { "type": "string" },
+    "parent_id": { "type": "integer" },
+    "requester_id": { "type": "integer" },
+    "request_type": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

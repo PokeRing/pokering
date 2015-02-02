@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  parent_type: games
+  parent_id: 1
+  commenter_id: 1
+  comment: 'Just wanted to say I like this game'
+  status: active
+
+two:
+  id: 2
+  parent_type: trips
+  parent_id: 1
+  commenter_id: 1
+  comment: 'Just wanted to say I like this trip'
+  status: active

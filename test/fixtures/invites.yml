@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  parent_type: trips
+  parent_id: 1
+  invited_id: 2
+  status: outstanding
+
+two:
+  id: 2
+  parent_type: games
+  parent_id: 1
+  invited_id: 2
+  status: accepted

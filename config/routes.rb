@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       resources :rings
       resources :trips
       resources :games
+      resources :comments
+      resources :invites
+      resources :requests
     end
   end
 

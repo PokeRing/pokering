@@ -178,3 +178,51 @@ Game.create([
     status: 'active'
   }
 ])
+
+Comment.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE comments AUTO_INCREMENT = 1")
+Comment.create([
+  {
+    parent_type: 'games',
+    parent_id: 1,
+    commenter_id: 1,
+    comment: 'Just wanted to say I like this game',
+    status: 'active'
+  },
+  {
+    parent_type: 'trips',
+    parent_id: 1,
+    commenter_id: 1,
+    comment: 'Just wanted to say I like this trip',
+    status: 'active'
+  }
+])
+
+Invite.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE invites AUTO_INCREMENT = 1")
+Invite.create([
+  {
+    parent_type: 'games',
+    parent_id: 1,
+    invited_id: 3,
+    status: 'outstanding'
+  },
+  {
+    parent_type: 'trips',
+    parent_id: 1,
+    invited_id: 3,
+    status: 'accepted'
+  }
+])
+
+Request.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE requests AUTO_INCREMENT = 1")
+Request.create([
+  {
+    parent_type: 'games',
+    parent_id: 1,
+    requester_id: 3,
+    request_type: 'invite',
+    status: 'active'
+  }
+])
