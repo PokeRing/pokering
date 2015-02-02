@@ -5,7 +5,7 @@ module Api
       resource_description do
         error :code => 401, :desc => "Unauthorized"
         error :code => 500, :desc => "Internal Server Error"
-        description "The JSON schema for the request body per [json-schema.org](http://json-schema.org/)<pre><code>#{File.read(File.join(Rails.root, "app", "models", "json-schema", "request.json"))}</code></pre>"
+        description "The JSON schema for the request body per [json-schema.org](http://json-schema.org/)<pre><code>#{File.read(File.join(Rails.root, "app", "models", "json-schema", "request.json"))}</code></pre>One note on request_type: can either be 'invite' or 'referral' to make use of requests for both of these needs."
       end
 
       api :GET, '/requests', "Get a paged list of requests, page limit set at #{WillPaginate.per_page}"
