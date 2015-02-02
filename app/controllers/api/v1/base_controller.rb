@@ -15,7 +15,6 @@ module Api
       protected
 
       def render_collection(results, page)
-        puts Rails.application.config.events
         render :json => {
           :total    => results.total_entries,
           :count    => results.length,
