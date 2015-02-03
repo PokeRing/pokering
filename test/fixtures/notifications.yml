@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  type_id: invite.created
+  to_id: 2
+  content: '{"subject_type": "games", "subject_id": 1, "subject": "Game 1", "from_id": 1, "from": "User 1"}'
+  status: read
+
+two:
+  id: 2
+  type_id: request.referral.created
+  to_id: 1
+  content: '{"subject_type": "games", "subject_id": 1, "subject": "Game 1", "from_id": 2, "from": "User 2", "referred_id": 3, "referred": "User 3"}'
+  status: unread

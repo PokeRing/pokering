@@ -9,4 +9,12 @@ class User < ActiveRecord::Base
     ['first_name', 'last_name', 'email', 'username', 'bio', 'city', 'state']
   end
 
+  def on_create
+
+  end
+
+  def on_update
+
+  end
+
 end

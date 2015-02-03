@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :comments
       resources :invites
       resources :requests
+      resources :notifications
     end
   end
 

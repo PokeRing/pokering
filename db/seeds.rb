@@ -133,7 +133,7 @@ Trip.create([
     departure_date: '2015-05-12T05:00:00Z',
     is_chop_room: true,
     max_players: 4,
-    players: '[]',
+    players: [],
     notify_rings: true,
     status: 'active'
   },
@@ -144,7 +144,7 @@ Trip.create([
     departure_date: '2015-07-20T08:00:00Z',
     is_chop_room: false,
     max_players: 10,
-    players: '[2]',
+    players: [2],
     notify_rings: false,
     status: 'active'
   }
@@ -168,7 +168,7 @@ Game.create([
     buy_in_max: 1.5,
     min_players: 1,
     max_players: 1,
-    players: '[2,3]',
+    players: [2,3],
     info: 'Come one, come all to the game of the week!',
     status: 'active'
   },
@@ -187,7 +187,7 @@ Game.create([
     buy_in_max: 1.5,
     min_players: 1,
     max_players: 1,
-    players: '[3,1]',
+    players: [3,1],
     status: 'active'
   }
 ])
@@ -219,14 +219,14 @@ Invite.create([
     parent_id: 1,
     creator_id: 1,
     invited_id: 4,
-    status: 'active'
+    status: 'sent'
   },
   {
     parent_type: 'trips',
     parent_id: 1,
     creator_id: 1,
     invited_id: 3,
-    status: 'inactive'
+    status: 'accepted'
   }
 ])
 
@@ -245,9 +245,38 @@ Request.create([
     parent_type: 'games',
     parent_id: 1,
     creator_id: 3,
-    subject_id: 6,
     to_id: 1,
+    referred_id: 6,
     request_type: 'referral',
     status: 'active'
+  }
+])
+
+Notification.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE notifications AUTO_INCREMENT = 1")
+Notification.create([
+  {
+    type_id: 'invite.created',
+    to_id: 4,
+    content: {"subject_type" => "games", "subject_id" => 1, "subject" => "Penny's Game", "from_id" => 1, "from" => "Penny Lane"},
+    status: 'unread'
+  },
+  {
+    type_id: 'invite.created',
+    to_id: 4,
+    content: {"subject_type" => "trips", "subject_id" => 1, "subject" => "Borgata, Atlantic City, NJ", "from_id" => 1, "from" => "Penny Lane"},
+    status: 'read'
+  },
+  {
+    type_id: 'request.invite.created',
+    to_id: 1,
+    content: {"subject_type" => "trips", "subject_id" => 1, "subject" => "Borgata, Atlantic City, NJ", "from_id" => 3, "from" => "Vinny Goombots"},
+    status: 'read'
+  },
+  {
+    type_id: 'request.referral.created',
+    to_id: 1,
+    content: {"subject_type" => "games", "subject_id" => 1, "subject" => "Penny's Game", "from_id" => 3, "from" => "Vinny Goombots", "referred_id" => 6, "referred" => "Nancy Precipice"},
+    status: 'read'
   }
 ])

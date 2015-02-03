@@ -33,9 +33,12 @@ class ApiV1UsersControllerTest < ActionController::TestCase
     user = 'wpestler'
     pw = '1234'
     request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
-    json    = '{"last_name": "PESTLER"}'
+    json    = '{"last_name": "PESTLER UPDATED"}'
     raw_put :update, {:id => 1, 'Content-Type' => 'application/json'}, json
     assert_response :success
+    result = JSON.parse(@response.body)
+    assert_equal "PESTLER UPDATED", result['last_name']
+    assert_equal "Walter", result['first_name']
   end
 
 end

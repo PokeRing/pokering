@@ -7,7 +7,7 @@
     "parent_id": { "type": "integer" },
     "creator_id": { "type": "integer" },
     "invited_id": { "type": "integer" },
-    "status": { "type": "string" }, // 'active' or 'inactive'
+    "status": { "type": "string" }, // 'sent', 'accepted', or 'declined'
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" }
   }

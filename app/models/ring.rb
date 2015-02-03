@@ -7,4 +7,12 @@ class Ring < ActiveRecord::Base
     ['title']
   end
 
+  def on_create
+
+  end
+
+  def on_update
+
+  end
+
 end

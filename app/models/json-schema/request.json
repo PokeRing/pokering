@@ -7,7 +7,7 @@
     "parent_id": { "type": "integer" },
     "creator_id": { "type": "integer" },
     "to_id": { "type": "integer" },
-    "subject_id": { "type": "integer" }, // only relevant for type 'referral'
+    "referred_id": { "type": "integer" }, // only relevant for type 'referral'
     "request_type": { "type": "string" }, // 'referral' or 'invite'
     "status": { "type": "string" }, // 'active' or 'inactive'
     "created_at": { "type": "string", "format": "date-time" },

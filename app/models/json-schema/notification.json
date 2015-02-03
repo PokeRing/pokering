@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "id": { "type": "integer" },
+    "type": { "type": "string" }, // see full list below of possible values
+    "to_id": { "type": "integer" }, // who is receiving the notification
+    "content": {
+      "type": "object",
+      "required": ["subject_type", "subject_id", "subject", "from_id", "from"],
+      "properties": {
+        "subject_type": { "type": "string" }, // the related resource name like 'games' or 'rings', etc
+        "subject_id": { "type": "integer" }, // the ID of the related resource
+        "subject": { "type": "string" }, // the title, name, etc. of the related resource, the subject of the notification
+        "from_id": { "type": "integer" }, // the ID of the user whose action generated the notification
+        "from": { "type": "string" }, // the name of the user whose action generated the notification
+        "referred_id": { "type": "integer" }, // if a referral request notification, the ID of the user being referred
+        "referred": { "type": "string" } // if a referral request notification, the name of the user being referred
+      }
+    },
+    "status": { "type": "string" }, // 'unread' or 'read'
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

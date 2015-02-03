@@ -36,7 +36,7 @@ class ApiV1InvitesControllerTest < ActionController::TestCase
     user = 'wpestler'
     pw = '1234'
     request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
-    json    = '{"status": "inactive"}'
+    json    = '{"status": "declined"}'
     raw_put :update, {:id => 1, 'Content-Type' => 'application/json'}, json
     assert_response :success
   end

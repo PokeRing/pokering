@@ -6,7 +6,7 @@ module Api
 
       resource_description do
         formats ['json']
-        meta :author => {:name => 'Patrick', :surname => 'Force'}
+        meta :author => {:name => 'Pokering', :surname => 'Dev'}
       end
 
       before_filter :http_authenticate
@@ -66,6 +66,7 @@ module Api
         end
         created = type.create(json)
         if created.valid?
+          created.on_create
           render :status => 201, :json => created
           return created.id
         else
@@ -108,6 +109,11 @@ module Api
           strip.each do |key|
             json.delete(key) if json.has_key?(key)
           end
+          json.each do |key,value|
+            existing[key] = value
+          end
+          existing.save
+          existing.on_update
           render :status => 200, :json => type.find(id)
         else
           render :status => 404, :json => {:status => 404, :message => 'Not Found'}

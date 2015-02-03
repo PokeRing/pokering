@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203000402) do
+ActiveRecord::Schema.define(version: 20150203004104) do
 
   create_table "comments", force: true do |t|
     t.string   "parent_type"
@@ -55,12 +55,21 @@ ActiveRecord::Schema.define(version: 20150203000402) do
     t.datetime "updated_at"
   end
 
+  create_table "notifications", force: true do |t|
+    t.string   "type_id"
+    t.integer  "to_id"
+    t.text     "content"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "requests", force: true do |t|
     t.string   "parent_type"
     t.integer  "parent_id"
     t.integer  "creator_id"
     t.integer  "to_id"
-    t.integer  "subject_id"
+    t.integer  "referred_id"
     t.string   "request_type"
     t.string   "status"
     t.datetime "created_at"
