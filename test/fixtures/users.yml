@@ -35,3 +35,21 @@ two:
   share: basic
   is_admin: false
   status: active
+
+three:
+  id: 3
+  first_name: Blammy
+  last_name: Vermin
+  email: bvermin@getpokering.com
+  username: bvermin
+  password_digest: '$2a$10$yX03uEIwzukKvukaTN1ULOMF1ROVu8RYMpuYWEWafV9Vm1sFFTwJa'
+  favorite_hand: full house
+  avatar_url: http://getpokering.com
+  phone: 1234567892
+  city: Jeebs
+  state: LA
+  notify_via: mobile
+  bio: Whatever yall
+  share: personal
+  is_admin: false
+  status: active

@@ -28,6 +28,8 @@ Once up and running locally, API docs can be found at [http://localhost:3000/api
 # Writing and Running Tests
 To run tests: `bin/rake test`.  Unit and integration testing via default Rails capabilities within the `test` directory.
 
+Running cURL tests manually, this is a generally good reference: `curl -v --user pennylane:1234 -X POST -d '{"parent_type": "games", "parent_id": 1, "invited_id": 3}' http://localhost:3000/api/v1/invites`
+
 # Deployments
 Test and Production servers are hosted at AWS.  We're making use of [Jenkins CI](http://jenkins-ci.org/) to manage some automation of deployment needs.  After pushing changes to this repo, simply go to http://http://54.88.174.144/:8080, log in with the creds jenkins, and the common password provided, and you'll be able to run the deployment jobs that are set up there.
 
