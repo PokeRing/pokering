@@ -4,12 +4,14 @@ one:
   id: 1
   parent_type: trips
   parent_id: 1
+  creator_id: 1
   invited_id: 2
-  status: outstanding
+  status: active
 
 two:
   id: 2
   parent_type: games
   parent_id: 1
+  creator_id: 1
   invited_id: 2
-  status: accepted
+  status: inactive

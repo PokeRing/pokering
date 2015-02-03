@@ -37,7 +37,7 @@ module Api
         if !json.has_key?("status")
           json["status"] = "active"
         end
-        json[:commenter_id] = @@user.id
+        json[:creator_id] = @@user.id
         id    = create_item Comment, json
       end
 

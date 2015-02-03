@@ -4,5 +4,6 @@ one:
   id: 1
   parent_type: games
   parent_id: 1
-  requester_id: 3
+  creator_id: 1
+  to_id: 3
   request_type: invite

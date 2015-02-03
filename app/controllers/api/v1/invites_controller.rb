@@ -13,13 +13,13 @@ module Api
       error :code => 500, :desc => "Internal Server Error"
       param :ids, String, :desc => "a comma-delimited list of ids to return (cannot be used in conjunction with the q parameter, ids takes precedence)"
       param :q, String, :desc => "a search across relevant fields (cannot be used in conjunction with the ids parameter, ids takes precedence)"
-      param :status, ['outstanding', 'accepted', 'declined'], :desc => "search for a particular status only, default = outstanding"
+      param :status, ['active', 'inactive'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
       param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = parent_type, parent_id ASC"
       param :various, String, :desc => "any table column name can be used as a param, ex: parent_type=games etc."
       def index
         @results = Invite.where(
-                          :status => params[:status] ? params[:status] : 'outstanding'
+                          :status => params[:status] ? params[:status] : 'active'
                         )
                         .where(
                           get_arel_search(Invite, params)
@@ -35,8 +35,9 @@ module Api
       def create
         json  = validate_request_body request.body.read, 'invite'
         if !json.has_key?("status")
-          json["status"] = "outstanding"
+          json["status"] = "active"
         end
+        json[:creator_id] = @@user.id
         id    = create_item Invite, json
       end
 

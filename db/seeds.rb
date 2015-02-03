@@ -75,6 +75,18 @@ User.create([
     status: 'inactive'
   },
   {
+    first_name: 'Nancy',
+    last_name: 'Precipice',
+    email: 'precipice@getpokering.com',
+    username: 'precipice',
+    password: '1234',
+    password_confirmation: '1234',
+    notify_via: 'mobile',
+    share: 'full',
+    is_admin: false,
+    status: 'active'
+  },
+  {
     first_name: 'Mister',
     last_name: 'Admin',
     email: 'admin@getpokering.com',
@@ -101,11 +113,11 @@ Ring.create([
     title: 'Vin',
     creator_id: 3,
     status: 'active',
-    users: [1,4]
+    users: [1,6]
   },
   {
-    title: 'Mannatee',
-    creator_id: 4,
+    title: 'Rubbery',
+    creator_id: 5,
     status: 'inactive',
     users: [1,2,3]
   }
@@ -115,7 +127,7 @@ Trip.delete_all()
 ActiveRecord::Base.connection.execute("ALTER TABLE trips AUTO_INCREMENT = 1")
 Trip.create([
   {
-    organizer_id: 1,
+    creator_id: 1,
     location: 'Borgata, Atlantic City, NJ',
     arrival_date: '2015-05-09T05:00:00Z',
     departure_date: '2015-05-12T05:00:00Z',
@@ -126,7 +138,7 @@ Trip.create([
     status: 'active'
   },
   {
-    organizer_id: 1,
+    creator_id: 3,
     location: 'caesars palace, las vegas, nv',
     arrival_date: '2015-07-15T05:00:00Z',
     departure_date: '2015-07-20T08:00:00Z',
@@ -142,8 +154,8 @@ Game.delete_all()
 ActiveRecord::Base.connection.execute("ALTER TABLE games AUTO_INCREMENT = 1")
 Game.create([
   {
-    organizer_id: 1,
-    name: 'Game 1',
+    creator_id: 1,
+    name: 'Penny\'s Game',
     location: '123 3rd Ave Apt 3, New York, NY',
     date: '2015-05-09T05:00:00Z',
     base_game_type: 'tournament',
@@ -157,12 +169,13 @@ Game.create([
     min_players: 1,
     max_players: 1,
     players: '[2,3]',
+    info: 'Come one, come all to the game of the week!',
     status: 'active'
   },
   {
-    organizer_id: 1,
-    name: 'Game 2',
-    location: '124 3rd Ave Apt 3, New York, NY',
+    creator_id: 6,
+    name: 'Nancy\'s Game',
+    location: '100 3rd St., Seattle, WA',
     date: '2015-04-31T20:54:38Z',
     base_game_type: 'cash',
     game_type: 'holdem',
@@ -174,7 +187,7 @@ Game.create([
     buy_in_max: 1.5,
     min_players: 1,
     max_players: 1,
-    players: '[3,6]',
+    players: '[3,1]',
     status: 'active'
   }
 ])
@@ -185,14 +198,14 @@ Comment.create([
   {
     parent_type: 'games',
     parent_id: 1,
-    commenter_id: 1,
+    creator_id: 1,
     comment: 'Just wanted to say I like this game',
     status: 'active'
   },
   {
     parent_type: 'trips',
     parent_id: 1,
-    commenter_id: 1,
+    creator_id: 2,
     comment: 'Just wanted to say I like this trip',
     status: 'active'
   }
@@ -204,14 +217,16 @@ Invite.create([
   {
     parent_type: 'games',
     parent_id: 1,
-    invited_id: 3,
-    status: 'outstanding'
+    creator_id: 1,
+    invited_id: 4,
+    status: 'active'
   },
   {
     parent_type: 'trips',
     parent_id: 1,
+    creator_id: 1,
     invited_id: 3,
-    status: 'accepted'
+    status: 'inactive'
   }
 ])
 
@@ -219,10 +234,20 @@ Request.delete_all()
 ActiveRecord::Base.connection.execute("ALTER TABLE requests AUTO_INCREMENT = 1")
 Request.create([
   {
+    parent_type: 'trips',
+    parent_id: 1,
+    creator_id: 3,
+    to_id: 1,
+    request_type: 'invite',
+    status: 'inactive'
+  },
+  {
     parent_type: 'games',
     parent_id: 1,
-    requester_id: 3,
-    request_type: 'invite',
+    creator_id: 3,
+    subject_id: 6,
+    to_id: 1,
+    request_type: 'referral',
     status: 'active'
   }
 ])

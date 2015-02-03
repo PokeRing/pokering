@@ -101,9 +101,7 @@ module Api
       def update_item(type, id, json, strip = [])
         strip.push("id", "created_at", "updated_at")
         existing = get_item(type, id)
-        if (!@@user.is_admin && existing.has_attribute?('organizer_id') && existing.organizer_id != @@user.id) || \
-           (!@@user.is_admin && existing.has_attribute?('creator_id') && existing.creator_id != @@user.id) || \
-           (!@@user.is_admin && existing.has_attribute?('commenter_id') && existing.commenter_id != @@user.id)
+        if !@@user.is_admin && existing.has_attribute?('creator_id') && existing.creator_id != @@user.id
           return forbid
         end
         if !existing.nil?

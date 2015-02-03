@@ -2,7 +2,7 @@
 
 one:
   id: 1
-  organizer_id: 1
+  creator_id: 1
   name: 'Game 1'
   location: '123 3rd Ave Apt 3, New York, NY'
   date: 2015-03-31 20:54:38
@@ -21,7 +21,7 @@ one:
 
 two:
   id: 2
-  organizer_id: 1
+  creator_id: 1
   name: 'Game 2'
   location: '124 3rd Ave Apt 3, New York, NY'
   date: 2015-04-31 20:54:38

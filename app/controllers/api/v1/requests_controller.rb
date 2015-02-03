@@ -13,7 +13,7 @@ module Api
       error :code => 500, :desc => "Internal Server Error"
       param :ids, String, :desc => "a comma-delimited list of ids to return (cannot be used in conjunction with the q parameter, ids takes precedence)"
       param :q, String, :desc => "a search across relevant fields (cannot be used in conjunction with the ids parameter, ids takes precedence)"
-      param :status, ['active', 'invactive'], :desc => "search for a particular status only, default = active"
+      param :status, ['active', 'inactive'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
       param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = parent_type, parent_id ASC"
       param :various, String, :desc => "any table column name can be used as a param, ex: parent_type=games etc."
@@ -37,7 +37,7 @@ module Api
         if !json.has_key?("status")
           json["status"] = "active"
         end
-        json[:requester_id] = @@user.id
+        json[:creator_id] = @@user.id
         id    = create_item Request, json
       end
 

@@ -5,9 +5,11 @@
     "id": { "type": "integer" },
     "parent_type": { "type": "string" },
     "parent_id": { "type": "integer" },
-    "requester_id": { "type": "integer" },
-    "request_type": { "type": "string" },
-    "status": { "type": "string" },
+    "creator_id": { "type": "integer" },
+    "to_id": { "type": "integer" },
+    "subject_id": { "type": "integer" }, // only relevant for type 'referral'
+    "request_type": { "type": "string" }, // 'referral' or 'invite'
+    "status": { "type": "string" }, // 'active' or 'inactive'
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" }
   }

@@ -3,7 +3,7 @@
   "required": [],
   "properties": {
     "id": { "type": "integer" },
-    "organizer_id": { "type": "integer" },
+    "creator_id": { "type": "integer" },
     "name": { "type": "string" },
     "location": { "type": "string" },
     "date": { "type": "string", "format": "date-time" },
@@ -17,9 +17,9 @@
     "buy_in_max": { "type": "number" },
     "min_players": { "type": "number" },
     "max_players": { "type": "number" },
-    "buy_in": { "type": "number" },
+    "info": { "type": "string" },
     "players": { "type": "array" },
-    "status": { "type": "string" },
+    "status": { "type": "string" }, // 'active' or 'inactive'
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" }
   }

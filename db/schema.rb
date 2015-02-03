@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202002713) do
+ActiveRecord::Schema.define(version: 20150203000402) do
 
   create_table "comments", force: true do |t|
     t.string   "parent_type"
     t.integer  "parent_id"
-    t.integer  "commenter_id"
+    t.integer  "creator_id"
     t.text     "comment"
     t.string   "status"
     t.datetime "created_at"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150202002713) do
   end
 
   create_table "games", force: true do |t|
-    t.integer  "organizer_id"
+    t.integer  "creator_id"
     t.string   "name"
     t.text     "location"
     t.datetime "date"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150202002713) do
   create_table "invites", force: true do |t|
     t.string   "parent_type"
     t.integer  "parent_id"
+    t.integer  "creator_id"
     t.integer  "invited_id"
     t.string   "status"
     t.datetime "created_at"
@@ -57,7 +58,9 @@ ActiveRecord::Schema.define(version: 20150202002713) do
   create_table "requests", force: true do |t|
     t.string   "parent_type"
     t.integer  "parent_id"
-    t.integer  "requester_id"
+    t.integer  "creator_id"
+    t.integer  "to_id"
+    t.integer  "subject_id"
     t.string   "request_type"
     t.string   "status"
     t.datetime "created_at"
@@ -74,7 +77,7 @@ ActiveRecord::Schema.define(version: 20150202002713) do
   end
 
   create_table "trips", force: true do |t|
-    t.integer  "organizer_id"
+    t.integer  "creator_id"
     t.text     "location"
     t.datetime "arrival_date"
     t.datetime "departure_date"

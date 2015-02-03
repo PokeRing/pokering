@@ -16,7 +16,7 @@ module Api
       param :status, ['active', 'inactive'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
       param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = name ASC"
-      param :various, String, :desc => "any table column name can be used as a param, ex: organizer_id=1 etc."
+      param :various, String, :desc => "any table column name can be used as a param, ex: creator_id=1 etc."
       def index
         @results = Game.where(
                           :status => params[:status] ? params[:status] : 'active'
@@ -25,7 +25,7 @@ module Api
                           get_arel_search(Game, params)
                         )
                        .paginate(:page => params[:page] ? params[:page] : 1)
-                       .order(params[:order] ? params[:order] : 'organizer_id ASC')
+                       .order(params[:order] ? params[:order] : 'name ASC')
         render_collection @results, params[:page] ? params[:page] : 1
       end
 
@@ -37,7 +37,7 @@ module Api
         if !json.has_key?("status")
           json["status"] = "active"
         end
-        json[:organizer_id] = @@user.id
+        json[:creator_id] = @@user.id
         id    = create_item Game, json
       end
 

@@ -15,11 +15,11 @@
     "phone": { "type": "string" },
     "city": { "type": "string" },
     "state": { "type": "string" },
-    "notify_via": { "type": "string" },
+    "notify_via": { "type": "string" }, // 'email' or 'mobile'
     "bio": { "type": "string" },
-    "share": { "type": "boolean" },
+    "share": { "type": "boolean" }, // 'basic', 'personal', or 'full'
     "is_admin": { "type": "boolean" },
-    "status": { "type": "string" },
+    "status": { "type": "string" }, // 'active', 'inactive', or 'invited'
     "created_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" }
   }
