@@ -29,7 +29,7 @@ module Api
       param :q, String, :desc => "a search across relevant fields (cannot be used in conjunction with the ids parameter, ids takes precedence)"
       param :status, ['active', 'inactive', 'invited'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
-      param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = last_name, first_name ASC"
+      param :order, String, :desc => "how to order the results, `field_name ASC|DESC`, default = last_name, first_name ASC"
       param :various, String, :desc => "any table column name can be used as a param, ex: username=admin etc."
       def index
         @results = User.where(

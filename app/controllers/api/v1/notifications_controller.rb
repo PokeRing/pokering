@@ -17,7 +17,7 @@ module Api
       error :code => 500, :desc => "Internal Server Error"
       param :status, ['read', 'unread'], :desc => "search for a particular status only, default = read and unread"
       param :page, Integer, :desc => "the page of results to show"
-      param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = created_at DESC"
+      param :order, String, :desc => "how to order the results, `field_name ASC|DESC`, default = created_at DESC"
       def index
         @results = Notification.where(
                           :to_id => @@user.id

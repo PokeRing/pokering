@@ -15,7 +15,7 @@ module Api
       param :q, String, :desc => "a search across relevant fields (cannot be used in conjunction with the ids parameter, ids takes precedence)"
       param :status, ['active', 'inactive'], :desc => "search for a particular status only, default = active"
       param :page, Integer, :desc => "the page of results to show"
-      param :order, String, :desc => "how to order the results, '[field_name] [ASC|DESC]', default = location ASC"
+      param :order, String, :desc => "how to order the results, `field_name ASC|DESC`, default = location ASC"
       param :various, String, :desc => "any table column name can be used as a param, ex: creator_id=1 etc."
       def index
         @results = Trip.where(
