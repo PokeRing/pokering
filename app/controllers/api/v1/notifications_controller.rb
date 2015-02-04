@@ -1,6 +1,7 @@
 module Api
   module V1
     class NotificationsController < BaseController
+      include ActionController::Live
 
       resource_description do
         error :code => 401, :desc => "Unauthorized"
@@ -17,14 +18,27 @@ module Api
       error :code => 500, :desc => "Internal Server Error"
       param :status, ['read', 'unread'], :desc => "search for a particular status only, default = read and unread"
       param :page, Integer, :desc => "the page of results to show"
-      param :order, String, :desc => "how to order the results, `field_name ASC|DESC`, default = created_at DESC"
+      param :order, String, :desc => "how to order the results, `field_name ASC|DESC`, default = created_at, id DESC"
       def index
-        @results = Notification.where(
-                          :to_id => @@user.id
-                       )
-                       .paginate(:page => params[:page] ? params[:page] : 1)
-                       .order(params[:order] ? params[:order] : 'created_at DESC')
-        render_collection @results, params[:page] ? params[:page] : 1
+        response.headers['Content-Type'] = 'text/event-stream'
+        max_id = 0
+        loop do
+          @results = Notification.where(
+                        :to_id => @@user.id
+                     )
+                     .where('id > ?', max_id)
+                     .paginate(:page => params[:page] ? params[:page] : 1)
+                     .order(params[:order] ? params[:order] : 'created_at, id DESC')
+          response.stream.write(get_collection(@results, params[:page] ? params[:page] : 1).to_json + "\n")
+          if (@results.length > 0)
+            max_id = @results[0].id
+          end
+          sleep 10
+        end
+      rescue IOError
+        # Client Disconnected
+      ensure
+        response.stream.close
       end
 
       api :GET, '/notifications/:id', 'Get a single notification'

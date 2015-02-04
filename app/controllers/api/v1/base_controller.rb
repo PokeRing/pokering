@@ -14,13 +14,17 @@ module Api
 
       protected
 
-      def render_collection(results, page)
-        render :json => {
+      def get_collection(results, page)
+        {
           :total    => results.total_entries,
           :count    => results.length,
           :page     => page,
           :results  => results
         }
+      end
+
+      def render_collection(results, page)
+        render :json => get_collection(results, page)
       end
 
       def http_authenticate
