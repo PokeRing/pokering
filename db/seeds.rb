@@ -189,6 +189,24 @@ Game.create([
     max_players: 1,
     players: [3,1],
     status: 'active'
+  },
+  {
+    creator_id: 3,
+    name: 'Vin\'s Game',
+    location: 'Undisclosed, will discuss',
+    date: '2015-06-31T20:54:38Z',
+    base_game_type: 'cash',
+    game_type: 'holdem',
+    limit_type: 'no-limit',
+    stakes: 1.5,
+    buy_in: 1.5,
+    re_buy_in: 1.5,
+    buy_in_min: 1.5,
+    buy_in_max: 1.5,
+    min_players: 1,
+    max_players: 1,
+    players: [],
+    status: 'active'
   }
 ])
 

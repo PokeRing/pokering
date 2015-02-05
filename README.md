@@ -25,6 +25,9 @@ Rail's larger use is for serving the API resources under various routes within `
 # API Documentation
 Once up and running locally, API docs can be found at [http://localhost:3000/api/v1/docs](http://localhost:3000/api/v1/docs).
 
+# Application Notifications
+The API utilizes server-sent events for the `/api/v1/notifications` controller. There's a demo page with example code for connecting to and handling the stream of real-time results from this API resource: `/public/sse-notifications-demo.html`.  We'll want to remove this file at some point before deploying to production for the first time.  Useful in getting development rolling for this functionality on the front-end.
+
 # Writing and Running Tests
 To run tests: `bin/rake test`.  Unit and integration testing via default Rails capabilities within the `test` directory.
 

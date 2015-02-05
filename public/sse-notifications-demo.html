@@ -1,0 +1,75 @@
+<!doctype html>
+<head>
+
+  <meta charset="utf-8">
+  <title>SSE Notifications Demo w/ JQuery</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+
+  <h1>SSE Notifications Demo w/ JQuery</h1>
+
+  <div id="notifications"></div>
+
+  <p id="new-request">
+    <button onclick="sendNewRequest()">Send a new request to see another item appear in the feed</button>
+  </p>
+
+  <p>The server refreshes notifications at 10 second intervals.  Upon loading the page or after clicking the button above, it may take some seconds before the new item appears.</p>
+
+  <script type="text/javascript">
+
+    var source;
+
+    function sendNewRequest() {
+      $.ajax({
+        type: 'POST',
+        url: '/api/v1/invites',
+        dataType: 'json',
+        data: '{"parent_id": 3, "parent_type": "games", "invited_id": 1}',
+        username: 'vgooms',
+        password: '1234',
+        success: function(data) {
+          console.debug('got invite response!', data);
+          // for demo purposes, need to reset the http auth here
+          $.ajax({
+            type: 'GET',
+            url: '/api/v1/users/1',
+            dataType: 'json',
+            username: 'pennylane',
+            password: '1234'
+          });
+        }
+      });
+    }
+
+    function openNotifications() {
+
+      source = new EventSource("http://pennylane:1234@localhost:3000/api/v1/notifications", { withCredentials: true });
+      source.onopen = function(event) {
+        console.debug("connection opened", event);
+      };
+      source.onmessage = function(event) {
+        var data = JSON.parse(event.data);
+        console.debug("received!", data);
+
+        var results = data.results.reverse();
+        for (var i = 0; i < results.length; i++) {
+          $('#notifications').prepend(
+            $('<div/>').attr('id', 'notification-' + results[i].id).text(results[i].id + ': ' + results[i].content.subject)
+          );
+        }
+      };
+      source.onerror = function(event) {
+        console.debug("error!", event);
+        document.getElementById('notifications').innerHTML += '<div style="color:red;">Error, see console for more info</div>';
+      }
+
+    }
+
+    openNotifications();
+
+  </script>
+
+</body>
+</html>

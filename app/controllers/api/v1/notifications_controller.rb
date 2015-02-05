@@ -18,21 +18,23 @@ module Api
       error :code => 500, :desc => "Internal Server Error"
       param :status, ['read', 'unread'], :desc => "search for a particular status only, default = read and unread"
       param :page, Integer, :desc => "the page of results to show"
-      param :order, String, :desc => "how to order the results, `field_name ASC|DESC`, default = created_at, id DESC"
+      param :order, String, :desc => "how to order the results, `field_name ASC|DESC`, default = id DESC"
       def index
         response.headers['Content-Type'] = 'text/event-stream'
-        max_id = 0
+        min_id = 0
         loop do
-          @results = Notification.where(
-                        :to_id => @@user.id
-                     )
-                     .where('id > ?', max_id)
-                     .paginate(:page => params[:page] ? params[:page] : 1)
-                     .order(params[:order] ? params[:order] : 'created_at, id DESC')
-          response.stream.write(get_collection(@results, params[:page] ? params[:page] : 1).to_json + "\n")
+            timevalue = (Time.now.to_f * 1000).to_i
+            @results = Notification.where(
+                          :to_id => @@user.id
+                       )
+                       .where('id > ?', min_id)
+                       .where('? = ?', timevalue, timevalue)
+                       .paginate(:page => params[:page] ? params[:page] : 1)
+                       .order(params[:order] ? params[:order] : 'id DESC')
           if (@results.length > 0)
-            max_id = @results[0].id
+            min_id = @results[0].id
           end
+          response.stream.write("data: " + get_collection(@results, params[:page] ? params[:page] : 1).to_json + "\n\n")
           sleep 10
         end
       rescue IOError
