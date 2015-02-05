@@ -12,7 +12,7 @@ Rail's larger use is for serving the API resources under various routes within `
 1. Install ruby 2.1.1, and rails 4.1.2. [RVM](http://rvm.io/rvm/install) is the recommended way of installing:
         
         \curl -sSL https://get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm
-        rvm install 2.1.1 && rvm use 2.1.1 --default
+        rvm install 2.2.0 && rvm use 2.2.0 --default
         gem install rails -v 4.1.2
 
 2. Install mysql.  Again this is easiest to do through homebrew: `brew install mysql`.  Ensure that mysql is started and is started on startup (easy to follow instructions included at the end of the `brew install`).
@@ -34,7 +34,7 @@ To run tests: `bin/rake test`.  Unit and integration testing via default Rails c
 Running cURL tests manually, this is a generally good reference: `curl -v --user pennylane:1234 -X POST -d '{"parent_type": "games", "parent_id": 1, "invited_id": 3}' http://localhost:3000/api/v1/invites`
 
 # Deployments
-Test and Production servers are hosted at AWS.  We're making use of [Jenkins CI](http://jenkins-ci.org/) to manage some automation of deployment needs.  After pushing changes to this repo, simply go to http://http://54.88.174.144/:8080, log in with the creds jenkins, and the common password provided, and you'll be able to run the deployment jobs that are set up there.
+Test and Production servers are hosted at AWS.  We're making use of [Jenkins CI](http://jenkins-ci.org/) to manage some automation of deployment needs.  After pushing changes to this repo, simply go to http://52.0.73.61:8080, log in with the creds jenkins, and the common password provided, and you'll be able to run the deployment jobs that are set up there.
 
 # Working with AWS
 For sys admins on the project, sshing in to any of the EC2 instances can be done by using the user ubuntu and the pokering.pem identify file.
@@ -45,19 +45,17 @@ For sys admins on the project, sshing in to any of the EC2 instances can be done
 
 We're not going to use puppet or any sort of server admin automation tool yet.  But, tracking each server set up on EC2 here for now so it could happen at some point if need be.
 
-utility (test server)
+dev/utility server setup notes (elastic IP of 54.208.252.9)
 ========
 
 1. Create EC2 instance using Ubuntu 14.04 LTS AMI
 2. Used `pokering.pem` key file as set in the instance creation to SSH in: copy `pokering.pem` to `~/.ssh/`, then ssh in to the instance: `ssh -i ~/.ssh/pokering.pem ubuntu@[public DNS name]`
-3. `sudo apt-get update`
+3. `sudo apt-get update && sudo apt-get upgrade`
 4. `gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && curl -L get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm && rvm requirements`
-5. `rvm install 2.1.1 && rvm use 2.1.1 --default`
+5. `rvm install 2.2.0 && rvm use 2.2.0 --default`
 6. `gem install rails -v 4.1.2`
-7. `gem install passenger`
-8. `rvmsudo passenger-install-nginx-module` and follow instructions to install any missing dependencies, re-run the above command after
-9. `wget -O init-deb.sh http://library.linode.com/assets/660-init-deb.sh && sudo mv init-deb.sh /etc/init.d/nginx && sudo chmod +x /etc/init.d/nginx && sudo /usr/sbin/update-rc.d -f nginx defaults`
-10. `sudo service nginx start`
+7. Follow the instructions at https://www.phusionpassenger.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu to install Phusion Passenger/Nginx
+8. Install git: `sudo apt-get install git`
 11. Install Jenkins (reference https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu):
         
         wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
@@ -74,7 +72,7 @@ utility (test server)
         sudo service jenkins restart
 
 14. Set security through Jenkins web interface
-15. `sudo apt-get install git && sudo apt-get install libmysqlclient-dev && sudo apt-get install nodejs` 
+15. `sudo apt-get install git && sudo apt-get install libmysqlclient-dev` 
 Manually clone the repo on the ec2 instance, then copy to `/var/www/pokering`
 16. Add the `pokering-test-deploy` job that will simply run `cd /var/www/pokering && git pull --rebase origin master && bundle install && RAILS_ENV=staging bin/rake db:migrate`
 17. Update nginx config:

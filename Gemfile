@@ -45,4 +45,5 @@ gem 'bcrypt'
 gem 'json-schema'
 gem 'apipie-rails'
 gem 'maruku'
-gem 'puma'
+gem 'puma', group: [:development]
+gem 'passenger', group: [:staging, :production]
