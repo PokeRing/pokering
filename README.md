@@ -28,6 +28,8 @@ Once up and running locally, API docs can be found at [http://localhost:3000/api
 # Application Notifications
 The API utilizes server-sent events for the `/api/v1/notifications` controller. There's a demo page with example code for connecting to and handling the stream of real-time results from this API resource: `/public/sse-notifications-demo.html`.  We'll want to remove this file at some point before deploying to production for the first time.  Useful in getting development rolling for this functionality on the front-end.
 
+I will say that things like sockets and server sent events are still fairly fragile.  We may determine for browser compatibility, consistency, or stability that falling back to AJAX long polling for real-time notifications is the way to go.
+
 # Writing and Running Tests
 To run tests: `bin/rake test`.  Unit and integration testing via default Rails capabilities within the `test` directory.
 
