@@ -6,7 +6,7 @@ namespace :source do
   end
 
   task deploy_staging: :environment do
-    sh 'ssh -i ~/.ssh/pokering.pem ubuntu@54.208.252.9 "cd /var/www/pokering && git pull --rebase origin master && sudo -u ubuntu RAILS_ENV=staging bin/rake source:on_deploy"'
+    sh 'ssh -i ~/.ssh/pokering.pem ubuntu@54.208.252.9 "source ~/.bash_profile && cd /var/www/pokering && git pull --rebase origin master && RAILS_ENV=staging bin/rake source:on_deploy"'
   end
 
   task on_deploy: :environment do
