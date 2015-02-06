@@ -48,7 +48,7 @@ For sys admins on the project, sshing in to any of the EC2 instances can be done
 
 We're not going to use puppet or any sort of server admin automation tool yet.  But, tracking each server set up on EC2 here for now so it could happen at some point if need be.
 
-dev/utility server setup notes (elastic IP of 54.208.252.9)
+dev/utility server setup notes (elastic IP of 54.208.252.9).  The same instructions should apply when setting up the production server, replacing "staging" refs with "production", beefing up the AWS settings, etc.
 ========
 
 1. Create EC2 instance using Ubuntu 14.04 LTS AMI
