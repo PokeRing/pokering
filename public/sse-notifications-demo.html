@@ -20,6 +20,8 @@
   <script type="text/javascript">
 
     var source;
+    var url = document.createElement('a');
+        url.href = document.URL;
 
     function sendNewRequest() {
       $.ajax({
@@ -45,7 +47,7 @@
 
     function openNotifications() {
 
-      source = new EventSource("http://pennylane:1234@localhost:3000/api/v1/notifications", { withCredentials: true });
+      source = new EventSource("http" + (url.protocol == 'https' ? 's' : '') + "://pennylane:1234@" + url.hostname + (url.port ? ":" + url.port : "") + "/api/v1/notifications", { withCredentials: true });
       source.onopen = function(event) {
         console.debug("connection opened", event);
       };
