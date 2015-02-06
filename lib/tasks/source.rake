@@ -8,7 +8,6 @@ namespace :source do
   task deploy_staging: :environment do
     sh 'ssh -i ~/.ssh/pokering.pem ubuntu@54.208.252.9 "source ~/.bash_profile && cd /var/www/pokering &&
           git pull --rebase origin master && \
-          RAILS_ENV=staging bin/rake source:on_deploy && \
           bundle install --without development && \
           RAILS_ENV=staging bin/rake db:migrate && sudo service nginx restart"'
   end
