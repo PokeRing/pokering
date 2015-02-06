@@ -9,7 +9,7 @@ The frontend is just a single page app.  Rails is used to render the single html
 Rail's larger use is for serving the API resources under various routes within `/api/...`.
 
 # To begin local development
-1. Install ruby 2.1.1, and rails 4.1.2. [RVM](http://rvm.io/rvm/install) is the recommended way of installing:
+1. Install ruby 2.2.0, and rails 4.1.2. [RVM](http://rvm.io/rvm/install) is the recommended way of installing:
         
         \curl -sSL https://get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm
         rvm install 2.2.0 && rvm use 2.2.0 --default
@@ -48,8 +48,9 @@ For sys admins on the project, sshing in to any of the EC2 instances can be done
 
 We're not going to use puppet or any sort of server admin automation tool yet.  But, tracking each server set up on EC2 here for now so it could happen at some point if need be.
 
-dev/utility server setup notes (elastic IP of 54.208.252.9).  The same instructions should apply when setting up the production server, replacing "staging" refs with "production", beefing up the AWS settings, etc.
+dev/utility server setup notes (elastic IP of 54.208.252.9)
 ========
+The same instructions should apply when setting up the production server, replacing "staging" refs with "production", beefing up the AWS settings, etc.
 
 1. Create EC2 instance using Ubuntu 14.04 LTS AMI
 2. Used `pokering.pem` key file as set in the instance creation to SSH in: copy `pokering.pem` to `~/.ssh/`, then ssh in to the instance: `ssh -i ~/.ssh/pokering.pem ubuntu@54.208.252.9`
