@@ -11,7 +11,8 @@ namespace :source do
           bundle install --without development && \
           RAILS_ENV=staging bin/rake db:migrate && \
           RAILS_ENV=staging bin/rake db:migrate:status && \
-          sudo service nginx restart"'
+          sudo service nginx restart && \
+          touch tmp/restart.txt"'
   end
 
   task deploy_production: :environment do
