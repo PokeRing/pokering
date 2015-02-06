@@ -50,12 +50,30 @@ dev/utility server setup notes (elastic IP of 54.208.252.9)
 
 1. Create EC2 instance using Ubuntu 14.04 LTS AMI
 2. Used `pokering.pem` key file as set in the instance creation to SSH in: copy `pokering.pem` to `~/.ssh/`, then ssh in to the instance: `ssh -i ~/.ssh/pokering.pem ubuntu@[public DNS name]`
-3. `sudo apt-get update && sudo apt-get upgrade`
-4. `gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && curl -L get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm && rvm requirements`
-5. `rvm install 2.2.0 && rvm use 2.2.0 --default`
-6. `gem install rails -v 4.1.2`
-7. Follow the instructions at https://www.phusionpassenger.com/documentation/Users%20guide%20Nginx.html#install_on_debian_ubuntu to install Phusion Passenger/Nginx
-8. Install git: `sudo apt-get install git`
+3. `sudo apt-get update`
+4. Install RVM: `gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && curl -L get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm && rvm requirements`
+5. Install Ruby: `rvm install 2.2.0 && rvm use 2.2.0 --default`
+6. Install Rails and Passenger gems: `gem install --no-rdoc --no-ri rails -v 4.1.2 && gem install --no-rdoc --no-ri passenger`
+7. Install Nginx w/ Passenger Support: `rvmsudo passenger-install-nginx-module` and follow instructions to install any missing dependencies, re-run the above command after.
+8. Install service scripts: `wget -O init-deb.sh https://www.linode.com/docs/assets/660-init-deb.sh && sudo mv init-deb.sh /etc/init.d/nginx && sudo chmod +x /etc/init.d/nginx && sudo /usr/sbin/update-rc.d -f nginx defaults`
+9. Start nginx: `sudo service nginx start`
+10. Install git: `sudo apt-get install git`
+11. Install MySQL utilities (necessary for mysql2 gem): `sudo apt-get install libmysqlclient-dev`
+12. Create deploy key for ubuntu user and add to github: `ssh-keygen -t rsa` no passphrase, copy the public key to github
+10. `cd /var && sudo mkdir -p www/pokering && cd www && sudo chown ubuntu:ubuntu pokering`
+11. (from the `/var/www` directory) Clone the app repo: `git clone git@github.com:PokeRing/pokering.git pokering`
+12. `cd pokering && bundle install --without development && RAILS_ENV=staging bin/rake db:migrate`
+13. Update nginx config (probably at `/opt/nginx/conf/nginx.conf`):
+
+        server {
+            listen 80;
+            server_name test.getpokering.com;
+            passenger_enabled on;
+            rails_env staging;
+            root /var/www/pokering/public;
+        }
+
+14. Restart nginx `sudo service nginx restart`
 11. Install Jenkins (reference https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu):
         
         wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
@@ -81,6 +99,7 @@ Manually clone the repo on the ec2 instance, then copy to `/var/www/pokering`
             listen 80;
             server_name test.getpokering.com;
             passenger_enabled on;
+            rails_env staging;
             root /var/www/pokering/public;
         }
 
