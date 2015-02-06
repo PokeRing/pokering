@@ -5,5 +5,6 @@ Apipie.configure do |config|
   # where is your API defined?
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/api/**/*.rb"
   config.app_info                = "The Pokering HTTP API is a RESTful JSON API designed to provide an data interface for any and all Pokering client applications."
-  config.markup                   = Apipie::Markup::Markdown.new
+  config.markup                  = Apipie::Markup::Markdown.new
+  config.reload_controllers      = true
 end
