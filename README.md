@@ -34,7 +34,10 @@ To run tests: `bin/rake test`.  Unit and integration testing via default Rails c
 Running cURL tests manually, this is a generally good reference: `curl -v --user pennylane:1234 -X POST -d '{"parent_type": "games", "parent_id": 1, "invited_id": 3}' http://localhost:3000/api/v1/invites`
 
 # Deployments
-Test and Production servers are hosted at AWS.  We're making use of [Jenkins CI](http://jenkins-ci.org/) to manage some automation of deployment needs.  After pushing changes to this repo, simply go to http://52.0.73.61:8080, log in with the creds jenkins, and the common password provided, and you'll be able to run the deployment jobs that are set up there.
+Staging and Production servers are hosted at AWS.  To deploy, you'll need the appropriate `pokering.pem` key to connect over SSH.  Ask an admin for the key, and once you have it, put it in `~/.ssh/` on your local machine.
+
+Deploying to staging: `bin/rake source:deploy_staging`
+Deploying to production: `bin/rake source:deploy_production`
 
 # Working with AWS
 For sys admins on the project, sshing in to any of the EC2 instances can be done by using the user ubuntu and the pokering.pem identify file.
@@ -49,7 +52,7 @@ dev/utility server setup notes (elastic IP of 54.208.252.9)
 ========
 
 1. Create EC2 instance using Ubuntu 14.04 LTS AMI
-2. Used `pokering.pem` key file as set in the instance creation to SSH in: copy `pokering.pem` to `~/.ssh/`, then ssh in to the instance: `ssh -i ~/.ssh/pokering.pem ubuntu@[public DNS name]`
+2. Used `pokering.pem` key file as set in the instance creation to SSH in: copy `pokering.pem` to `~/.ssh/`, then ssh in to the instance: `ssh -i ~/.ssh/pokering.pem ubuntu@54.208.252.9`
 3. `sudo apt-get update`
 4. Install RVM: `gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 && curl -L get.rvm.io | bash -s stable && source ~/.rvm/scripts/rvm && rvm requirements`
 5. Install Ruby: `rvm install 2.2.0 && rvm use 2.2.0 --default`
@@ -60,10 +63,10 @@ dev/utility server setup notes (elastic IP of 54.208.252.9)
 10. Install git: `sudo apt-get install git`
 11. Install MySQL utilities (necessary for mysql2 gem): `sudo apt-get install libmysqlclient-dev`
 12. Create deploy key for ubuntu user and add to github: `ssh-keygen -t rsa` no passphrase, copy the public key to github
-10. `cd /var && sudo mkdir -p www/pokering && cd www && sudo chown ubuntu:ubuntu pokering`
-11. (from the `/var/www` directory) Clone the app repo: `git clone git@github.com:PokeRing/pokering.git pokering`
-12. `cd pokering && bundle install --without development && RAILS_ENV=staging bin/rake db:migrate`
-13. Update nginx config (probably at `/opt/nginx/conf/nginx.conf`):
+13. `cd /var && sudo mkdir -p www/pokering && cd www && sudo chown ubuntu:ubuntu pokering`
+14. (from the `/var/www` directory) Clone the app repo: `git clone git@github.com:PokeRing/pokering.git pokering`
+15. `cd pokering && bundle install --without development && RAILS_ENV=staging bin/rake db:migrate` (seed the DB if desired: `RAILS_ENV=staging bin/rake db:seed`)
+16. Update nginx config (probably at `/opt/nginx/conf/nginx.conf`):
 
         server {
             listen 80;
@@ -73,38 +76,7 @@ dev/utility server setup notes (elastic IP of 54.208.252.9)
             root /var/www/pokering/public;
         }
 
-14. Restart nginx `sudo service nginx restart`
-11. Install Jenkins (reference https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu):
-        
-        wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-        sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-        sudo apt-get update && sudo apt-get install jenkins
-
-12. Create deploy key for ubuntu user and add to github: `ssh-keygen -t rsa` no passphrase, copy the public key to github
-13. Change Jenkins user to be ubuntu:ubuntu (http://blog.manula.org/2013/03/running-jenkins-under-different-user-in.html):
-
-        # Update $JENKINS_USER and $JENKINS_GROUP to be ubuntu in /etc/default/jenkins
-        sudo chown -R ubuntu:ubuntu /var/lib/jenkins
-        sudo chown -R ubuntu:ubuntu /var/cache/jenkins
-        sudo chown -R ubuntu:ubuntu /var/log/jenkins
-        sudo service jenkins restart
-
-14. Set security through Jenkins web interface
-15. `sudo apt-get install git && sudo apt-get install libmysqlclient-dev` 
-Manually clone the repo on the ec2 instance, then copy to `/var/www/pokering`
-16. Add the `pokering-test-deploy` job that will simply run `cd /var/www/pokering && git pull --rebase origin master && bundle install && RAILS_ENV=staging bin/rake db:migrate`
-17. Update nginx config:
-
-        server {
-            listen 80;
-            server_name test.getpokering.com;
-            passenger_enabled on;
-            rails_env staging;
-            root /var/www/pokering/public;
-        }
-
-18. `sudo service nginx restart`
-
+17. Restart nginx `sudo service nginx restart`
 
 RDS
 =========
