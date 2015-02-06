@@ -36,8 +36,8 @@ Running cURL tests manually, this is a generally good reference: `curl -v --user
 # Deployments
 Staging and Production servers are hosted at AWS.  To deploy, you'll need the appropriate `pokering.pem` key to connect over SSH.  Ask an admin for the key, and once you have it, put it in `~/.ssh/` on your local machine.
 
-Deploying to staging: `bin/rake source:deploy_staging`
-Deploying to production: `bin/rake source:deploy_production`
+1. Deploying to staging: `bin/rake source:deploy_staging`
+2. Deploying to production: `bin/rake source:deploy_production`
 
 # Working with AWS
 For sys admins on the project, sshing in to any of the EC2 instances can be done by using the user ubuntu and the pokering.pem identify file.
