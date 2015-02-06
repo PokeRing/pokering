@@ -5,12 +5,12 @@ namespace :source do
     sh 'git pull --rebase origin master && bundle install && bin/rake db:migrate'
   end
 
-  task deploy_staging: do
-    sh 'ssh -i ~/.ssh/pokering.pem -t ubuntu@54.208.252.9 "cd /var/www/pokering && git pull --rebase origin master && RAILS_ENV=staging && bin/rake source:on_deploy"'
+  task deploy_staging: :environment do
+    sh 'ssh -i ~/.ssh/pokering.pem -t ubuntu@54.208.252.9 "cd /var/www/pokering && git pull --rebase origin master && RAILS_ENV=staging bin/rake source:on_deploy"'
   end
 
-  task on_deploy: do
-    sh 'bundle install --without development && RAILS_ENV=staging bin/rake db:migrate && sudo service nginx restart'
+  task on_deploy: :environment do
+    # sh 'bundle install --without development && RAILS_ENV=staging bin/rake db:migrate && sudo service nginx restart'
   end
 
 end
