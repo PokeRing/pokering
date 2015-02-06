@@ -1,7 +1,6 @@
 default: &default
   adapter: mysql2
   database: pokering
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -24,6 +23,8 @@ staging:
   host: staging-utility.cbyumbutqbqz.us-east-1.rds.amazonaws.com
   username: root
   password: c8=iB8%unt
+  pool: 5
+  timeout: 5000
 
 production:
   <<: *default
