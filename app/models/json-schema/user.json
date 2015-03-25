@@ -18,6 +18,7 @@
     "notify_via": { "type": "string" }, // 'email' or 'mobile'
     "bio": { "type": "string" },
     "share": { "type": "boolean" }, // 'basic', 'personal', or 'full'
+    "rating": { "type": "float" },
     "is_admin": { "type": "boolean" },
     "status": { "type": "string" }, // 'active', 'inactive', or 'invited'
     "created_at": { "type": "string", "format": "date-time" },

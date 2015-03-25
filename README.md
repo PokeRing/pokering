@@ -17,7 +17,7 @@ Rail's larger use is for serving the API resources under various routes within `
 
 2. Install mysql.  Again this is easiest to do through homebrew: `brew install mysql`.  Ensure that mysql is started and is started on startup (easy to follow instructions included at the end of the `brew install`).
 3. Run the following from the command line `mysql -uroot -e "CREATE DATABASE pokering" && mysql -uroot -e "CREATE DATABASE pokeringtests" && mysql -uroot -e "CREATE USER 'pokering'@'localhost' IDENTIFIED BY 'p0kerings'" && mysql -uroot -e "GRANT ALL PRIVILEGES ON pokering.* TO 'pokering'@'localhost'" && mysql -uroot -e "GRANT ALL PRIVILEGES ON pokeringtests.* TO 'pokering'@'localhost'" && mysql -uroot -e "FLUSH PRIVILEGES"`.  If you already had mysql installed, and have a root password set, you'll just need to include that password in each of these calls, like `mysql -uroot -p12345 -e "CREATE DATABASE..."`
-4. Clone this repository, navigate to your cloned repo root, then run `bin/rake source:pull_dev && bin/rake db:seed`.  This will install the ruby gem dependencies, set up your db, and populate it with seed data.
+4. Clone this repository, navigate to your cloned repo root, then run `bundle install --without staging production && bin/rake source:pull_dev && bin/rake db:seed`.  This will install the ruby gem dependencies, set up your db, and populate it with seed data.
 5. Run `rails server`.  This will start a development server on your machine, accessible at [http://localhost:3000/](http://localhost:3000/).
 6. When you need to pull changes from the github repo, there's an npm convenience script `bin/rake source:pull_dev` that will pull the most recent master code and perform necessary cleanup, migrations, etc after the pull.  If you're working on a feature branch you'll need to run all the commands manually.  See `lib/tasks/source.rake` to see everything that happens.
 7. Frontend files such as html, css, images, and javascript live in the `/public` directory.
@@ -28,7 +28,7 @@ Once up and running locally, API docs can be found at [http://localhost:3000/api
 # Application Notifications
 The API utilizes server-sent events for the `/api/v1/notifications` controller. There's a demo page with example code for connecting to and handling the stream of real-time results from this API resource: `/public/sse-notifications-demo.html`.  We'll want to remove this file at some point before deploying to production for the first time.  Useful in getting development rolling for this functionality on the front-end.
 
-I will say that things like sockets and server sent events are still fairly fragile.  We may determine for browser compatibility, consistency, or stability that falling back to AJAX long polling for real-time notifications is the way to go.
+I will say that things like sockets and server sent events are still fairly fragile.  We may determine for browser compatibility, consistency, or stability that falling back to AJAX long polling for real-time notifications is the way to go post beta.
 
 # Writing and Running Tests
 To run tests: `bin/rake test`.  Unit and integration testing via default Rails capabilities within the `test` directory.

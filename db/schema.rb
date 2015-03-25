@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203004104) do
+ActiveRecord::Schema.define(version: 20150325173655) do
 
   create_table "comments", force: true do |t|
     t.string   "parent_type"
@@ -99,6 +99,14 @@ ActiveRecord::Schema.define(version: 20150203004104) do
     t.datetime "updated_at"
   end
 
+  create_table "user_ratings", force: true do |t|
+    t.integer  "rating_user_id"
+    t.integer  "rated_user_id"
+    t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -113,6 +121,7 @@ ActiveRecord::Schema.define(version: 20150203004104) do
     t.string   "notify_via"
     t.text     "bio"
     t.string   "share"
+    t.float    "rating",          limit: 24
     t.boolean  "is_admin"
     t.string   "status"
     t.datetime "created_at"

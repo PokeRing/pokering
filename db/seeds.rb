@@ -22,6 +22,7 @@ User.create([
     state: 'TN',
     notify_via: 'email',
     share: 'full',
+    rating: 4.5,
     is_admin: false,
     status: 'active'
   },
@@ -34,6 +35,7 @@ User.create([
     password_confirmation: '1234',
     notify_via: 'mobile',
     share: 'basic',
+    rating: 3,
     is_admin: false,
     status: 'active'
   },
@@ -296,5 +298,25 @@ Notification.create([
     to_id: 1,
     content: {"subject_type" => "games", "subject_id" => 1, "subject" => "Penny's Game", "from_id" => 3, "from" => "Vinny Goombots", "referred_id" => 6, "referred" => "Nancy Precipice"},
     status: 'read'
+  }
+])
+
+UserRating.delete_all()
+ActiveRecord::Base.connection.execute("ALTER TABLE user_ratings AUTO_INCREMENT = 1")
+UserRating.create([
+  {
+    rating_user_id: 1,
+    rated_user_id: 2,
+    rating: 3
+  },
+  {
+    rating_user_id: 2,
+    rated_user_id: 1,
+    rating: 5
+  },
+  {
+    rating_user_id: 3,
+    rated_user_id: 1,
+    rating: 4
   }
 ])

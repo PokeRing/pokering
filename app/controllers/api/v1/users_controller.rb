@@ -9,7 +9,7 @@ module Api
       end
 
       skip_before_filter :http_authenticate, :only => [:create, :authenticator]
-      skip_before_filter :authorize, :only => [:create, :authenticator]
+      skip_before_filter :authorize, :only => [:create, :authenticator, :ratings]
 
       api :POST, '/authenticator', "Check to see if username and password (pin) creds are valid (does not require basic HTTP authentication)"
       description "The request body should be `{\"username\": \"xxxx\", \"password\": \"xxxx\"}`"
@@ -24,7 +24,6 @@ module Api
 
       api :GET, '/users', "Get a paged list of users, page limit set at #{WillPaginate.per_page}"
       error :code => 404, :desc => "Not Found"
-      error :code => 500, :desc => "Internal Server Error"
       param :ids, String, :desc => "a comma-delimited list of ids to return (cannot be used in conjunction with the q parameter, ids takes precedence)"
       param :q, String, :desc => "a search across relevant fields (cannot be used in conjunction with the ids parameter, ids takes precedence)"
       param :status, ['active', 'inactive', 'invited'], :desc => "search for a particular status only, default = active"
@@ -55,7 +54,7 @@ module Api
         if !json.has_key?("status")
           json["status"] = "active"
         end
-        create_item User, json, ["password_digest", "is_admin"]
+        create_item User, json, ["password_digest", "is_admin", "rating"]
       end
 
       api :GET, '/users/:id', 'Get a single user'
@@ -69,7 +68,7 @@ module Api
       description "Refer to the JSON schema above for what to the JSON to post.  One note, for creating users, the relevant password (pin) fields are `password` and `password_confirmation`.  If left out, the password will not be updated.  In fact, any fields left out will simply remain the same."
       def update
         json = validate_request_body request.body.read, 'user'
-        update_item User, params[:id], json, ["password_digest", "is_admin"]
+        update_item User, params[:id], json, ["password_digest", "is_admin", "rating"]
       end
 
       def destroy
@@ -95,6 +94,36 @@ module Api
         end
       end
 
+      api :POST, '/users/:id/ratings', 'Rate a user'
+      error :code => 404, :desc => "Not Found"
+      error :code => 400, :desc => "Bad Request"
+      description "Post a rating, integer between 1 and 5 to rate a specific user. Post should be in the format `{\"rating\": 3}`"
+      def ratings
+        rated = get_item(User, params[:id])
+        if !rated.nil?
+          json = validate_request_body request.body.read, 'user_rating'
+          if json['rating'] != 1 && json['rating'] != 2 && json['rating'] != 3 && json['rating'] != 4 && json['rating'] != 5
+            render :status => 400, :json => {:status => 200, :message => 'Rating must be either 1, 2, 3, 4, or 5'}
+            return
+          end
+          existing_rating = UserRating.find_by(rating_user_id: @@user.id, rated_user_id: rated.id)
+          if !existing_rating.nil?
+            # existing rating, we just need to update
+            existing_rating['rating'] = json['rating']
+            existing_rating.save
+          else
+            # new rating
+            UserRating.create(rating_user_id: @@user.id, rated_user_id: rated.id, rating: json['rating'])
+          end
+          # now get the average from all ratings for this user and store in the user table
+          avg = UserRating.where(rated_user_id: rated.id).average(:rating)
+          rated.rating = avg
+          rated.save
+          render :status => 200, :json => {:status => 200, :message => 'Rating Saved'}
+        else
+          render :status => 404, :json => {:status => 404, :message => 'Not Found'}
+        end
+      end
     end
   end
 end
